@@ -1,17 +1,25 @@
 package com.structure.main;
 
 import android.os.Bundle;
+import android.widget.TextView;
+
 import com.structure.R;
 import com.structure.base.BaseActivity;
+
+import org.w3c.dom.Text;
+
+import butterknife.InjectView;
 
 
 /***/
 public class MainActivity extends BaseActivity<MainPresenter> implements MainDisplay  {
 
+    @InjectView(R.id.text)
+    public TextView mTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mThread.start();
     }
 
     @Override
@@ -38,12 +46,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
 
     }
 
-    Thread mThread = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            mPresenter.getInfo();
-        }
-    });
+
 
 
 

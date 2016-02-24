@@ -14,12 +14,12 @@ public class ActivityPresenter<V extends ActivityDisplay, M extends BaseModule> 
     }
 
     @Override
-    public BaseDisplay getDisplay() {
+    public V getDisplay() {
         return mDisplay;
     }
 
     @Override
-    public BaseModule getModule() {
+    public M getModule() {
         return mModule;
     }
 
