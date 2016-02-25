@@ -28,14 +28,20 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter>
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = createContentView();
+        View view = createContentView(inflater, container, savedInstanceState);
         if (null != view) {
             ButterKnife.inject(this,view);
         }
+        onViewCreated();
         return view;
     }
 
-    protected abstract View createContentView();
+    //    protected  void onViewCreated();
+    protected void onViewCreated() {
+
+    }
+
+    protected abstract View createContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
 
 
     protected abstract P createPresenter();

@@ -7,7 +7,6 @@ import com.structure.base.ActivityModule;
 import com.structure.base.ActivityPresenter;
 import com.structure.main.weeatherdata.*;
 import com.structure.main.weeatherdata.WeatherModuleAPI;
-import com.structure.utils.DebugLog;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;

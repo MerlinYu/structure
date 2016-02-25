@@ -38,6 +38,7 @@ dependencies {
 
     /** support UI design*/
     compile 'com.android.support:design:23.0.0'
+    compile 'com.android.support:recyclerview-v7:23.0.0'
     compile 'com.jakewharton:butterknife:6.1.0'
 
 
