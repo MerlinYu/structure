@@ -13,16 +13,16 @@ import retrofit.client.Response;
  */
 public class StructureClient implements Client {
 
-    private OkHttpClient client;
-    public StructureClient(OkHttpClient client){
-        this.client = client;
-    }
+  private OkHttpClient client;
+
+  public StructureClient(OkHttpClient client) {
+    this.client = client;
+  }
 
 
-
-    @Override
-    public Response execute(Request request) throws IOException {
-        return null;
-    }
+  @Override
+  public Response execute(Request request) throws IOException {
+    return null;
+  }
 
 }

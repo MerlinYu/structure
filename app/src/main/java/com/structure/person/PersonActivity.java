@@ -17,43 +17,43 @@ import butterknife.InjectView;
  */
 public class PersonActivity extends BaseActivity<PersonPresenter> {
 
-    @InjectView(R.id.person_toolbar)
-    Toolbar mToolBar;
-    @InjectView(R.id.person_bar_coll)
-    CollapsingToolbarLayout mCollBar;
+  @InjectView(R.id.person_toolbar)
+  Toolbar mToolBar;
+  @InjectView(R.id.person_bar_coll)
+  CollapsingToolbarLayout mCollBar;
 
-    private String userID;
+  private String userID;
 
 
-    @Override
-    public PersonPresenter createPresenter() {
-        return new PersonPresenter(this);
-    }
+  @Override
+  public PersonPresenter createPresenter() {
+    return new PersonPresenter(this);
+  }
 
-    @Override
-    public void onViewCreated() {
-        super.onViewCreated();
-        setSupportActionBar(mToolBar);
-        mCollBar.setTitle("My Zone");
-        PersonFragment fragment = PersonFragment.newInstance(getUserId(), false);
+  @Override
+  public void onViewCreated() {
+    super.onViewCreated();
+    setSupportActionBar(mToolBar);
+    mCollBar.setTitle("My Zone");
+    PersonFragment fragment = PersonFragment.newInstance(getUserId(), false);
     //    getSupportFragmentManager().beginTransaction().replace(android.R.id.content, fragment).commit();
-    }
+  }
 
-    @Override
-    public int getContentViewId() {
-        return R.layout.person_activity;
-    }
+  @Override
+  public int getContentViewId() {
+    return R.layout.person_activity;
+  }
 
-    public static Intent buildIntent(Context context, String userID) {
-        Intent intent = new Intent(context, PersonActivity.class);
-        intent.putExtra(PersonFragment.USER_ID,userID);
-        return intent;
-    }
+  public static Intent buildIntent(Context context, String userID) {
+    Intent intent = new Intent(context, PersonActivity.class);
+    intent.putExtra(PersonFragment.USER_ID, userID);
+    return intent;
+  }
 
-    private String getUserId() {
-        userID = getIntent().getStringExtra(PersonFragment.USER_ID);
-        return userID;
-    }
+  private String getUserId() {
+    userID = getIntent().getStringExtra(PersonFragment.USER_ID);
+    return userID;
+  }
 
 
 }

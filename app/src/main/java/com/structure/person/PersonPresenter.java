@@ -1,6 +1,6 @@
 package com.structure.person;
 
-import com.structure.StructureApiService;
+import com.structure.RetrofitApiService;
 import com.structure.base.ActivityModule;
 import com.structure.base.ActivityPresenter;
 import com.structure.person.userdata.User;
@@ -15,24 +15,25 @@ import retrofit.client.Response;
 public class PersonPresenter extends ActivityPresenter<PersonActivity, ActivityModule<PersonApi>> {
 
 
-    private final static String TAG = "PersonPresenter";
-    public PersonPresenter(PersonActivity mDisplay) {
-        super(mDisplay, StructureApiService.create(PersonApi.class, TAG));
+  private final static String TAG = "PersonPresenter";
 
-    }
+  public PersonPresenter(PersonActivity mDisplay) {
+    super(mDisplay, RetrofitApiService.create(PersonApi.class, TAG));
 
-    public void getUser() {
-        mModule.asRetrofit().getUserInfo("", new Callback<User>() {
-            @Override
-            public void success(User user, Response response) {
+  }
 
-            }
+  public void getUser() {
+    mModule.asRetrofit().getUserInfo("", new Callback<User>() {
+      @Override
+      public void success(User user, Response response) {
 
-            @Override
-            public void failure(RetrofitError error) {
+      }
 
-            }
-        });
+      @Override
+      public void failure(RetrofitError error) {
 
-    }
+      }
+    });
+
+  }
 }

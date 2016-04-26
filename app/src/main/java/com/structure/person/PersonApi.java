@@ -11,6 +11,6 @@ import retrofit.http.Path;
  */
 public interface PersonApi {
 
-    @GET("/user/{user}")
-    void getUserInfo(@Path("user") String user, Callback<User> callback) ;
+  @GET("/user/{user}")
+  void getUserInfo(@Path("user") String user, Callback<User> callback);
 }

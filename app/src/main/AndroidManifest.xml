@@ -3,6 +3,7 @@
     package="com.structure" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -10,7 +11,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar" >
+        android:theme="@style/Theme.AppCompat" >
 
         <activity android:name=".main.MainActivity"
             android:label="@string/app_name"
@@ -24,7 +25,24 @@
 
         <activity android:name=".person.PersonActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".test.TestActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/DialogFullActivity"/>
+
+        <activity android:name=".scheme.SchemeSelectActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <data android:scheme="lucky"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <!--隐藏启动-->
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
 
     </application>
 

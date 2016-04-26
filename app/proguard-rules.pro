@@ -15,3 +15,10 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-verbose            #混淆时记录日志
+-dontpreverify      #混淆时
+
+-keep public class * extends android.app.Activity # 保持不被混淆
+
+
