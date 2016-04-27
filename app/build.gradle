@@ -25,10 +25,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
 
     /**internet */
-    compile 'com.squareup.retrofit:retrofit:1.9.0'
-    compile 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
-    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.google.code.gson:gson:2.3'
+    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
+    compile 'com.squareup.okhttp:logging-interceptor:2.7.0'
 
     /** event */
     compile 'org.greenrobot:eventbus:3.0.0'
@@ -40,6 +41,10 @@ dependencies {
     compile 'com.android.support:design:23.0.0'
     compile 'com.android.support:recyclerview-v7:23.0.0'
     compile 'com.jakewharton:butterknife:6.1.0'
+
+    /** structure*/
+    compile 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta1'
+    compile 'io.reactivex:rxandroid:1.0.1'
 
 
 

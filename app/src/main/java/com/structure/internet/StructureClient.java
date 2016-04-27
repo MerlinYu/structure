@@ -4,14 +4,11 @@ import com.squareup.okhttp.OkHttpClient;
 
 import java.io.IOException;
 
-import retrofit.client.Client;
-import retrofit.client.Request;
-import retrofit.client.Response;
 
 /**
  * Created by yuchao.
  */
-public class StructureClient implements Client {
+public class StructureClient  {
 
   private OkHttpClient client;
 
@@ -20,9 +17,11 @@ public class StructureClient implements Client {
   }
 
 
+/*
   @Override
   public Response execute(Request request) throws IOException {
     return null;
   }
+*/
 
 }

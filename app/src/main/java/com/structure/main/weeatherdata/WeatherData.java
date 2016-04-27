@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Created by yuchao on 2/16/16.
- * data example
+ * for example
  * {
  *   "coord":{"lon":-122.08,"lat":37.39},
  *   "sys":{
@@ -114,7 +114,6 @@ public class WeatherData implements Parcelable{
 
     public String toString() {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("weather data: coord = " + coord.toString());
         buffer.append(" sys = " + sys.toString());
         buffer.append(" weather = " + weather.toString());
         buffer.append(" base = " + base);

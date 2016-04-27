@@ -6,8 +6,6 @@ import com.structure.base.ActivityPresenter;
 import com.structure.person.userdata.User;
 
 import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by yuchao.
@@ -21,6 +19,7 @@ public class PersonPresenter extends ActivityPresenter<PersonActivity, ActivityM
     super(mDisplay, RetrofitApiService.create(PersonApi.class, TAG));
 
   }
+/*
 
   public void getUser() {
     mModule.asRetrofit().getUserInfo("", new Callback<User>() {
@@ -36,4 +35,5 @@ public class PersonPresenter extends ActivityPresenter<PersonActivity, ActivityM
     });
 
   }
+*/
 }

@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.annotations.Expose;
 import com.squareup.picasso.Picasso;
 import com.structure.R;
 import com.structure.base.BaseActivity;
@@ -64,12 +63,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
 
   @OnClick(R.id.btn)
   void btnClick(View v) {
-    mPresenter.getWeatherInfo();
+    mPresenter.getTestKeyWord();
     //this.startActivity(PersonActivity.buildIntent(this, "yucaho"));
   /*  Intent intent = new Intent(this, TestActivity.class);
     this.startActivity(intent);
   */
 
+  }
+
+  public void setTextView(String text) {
+    mTextView.setText(text);
   }
 
 
