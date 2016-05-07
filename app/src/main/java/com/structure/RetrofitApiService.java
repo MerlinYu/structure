@@ -4,23 +4,23 @@ package com.structure;
 import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import com.squareup.okhttp.Cache;
-import com.squareup.okhttp.ConnectionPool;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import com.structure.base.ActivityModule;
 import com.structure.collection.HeadersCollection;
-import com.structure.internet.StructureClient;
 import com.structure.utils.NetworkUtils;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
+
+import okhttp3.Cache;
+import okhttp3.ConnectionPool;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -30,9 +30,7 @@ import retrofit.Retrofit;
 public final class RetrofitApiService {
 
   private static Retrofit mRestAdapter;
-  private static StructureClient mClient;
   private static  Map<String, String> sHeaders;
-
 
   public static void init(Application application) {
     initHeaders(application);
@@ -54,15 +52,20 @@ public final class RetrofitApiService {
 
 
   private static void initRestAdapter(Application application) {
-    final OkHttpClient okHttpClient = new OkHttpClient();
-    okHttpClient.setReadTimeout(30, TimeUnit.SECONDS);
-    okHttpClient.setConnectTimeout(30, TimeUnit.SECONDS);
-    okHttpClient.setCache(new Cache(application.getCacheDir(), 1024L * 1024L * 30));
-    okHttpClient.setConnectionPool(new ConnectionPool(5, 1000L * 60));
-    okHttpClient.interceptors().add(getHeaderInterceptor());
-    okHttpClient.interceptors().add(getLoggingInterceptor());
 
-    mClient = new StructureClient(okHttpClient);
+    final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .cache(new Cache(application.getCacheDir(), 1024L * 1024L * 30))
+        .connectionPool(new ConnectionPool())
+        .addInterceptor(getHeaderInterceptor())
+        .addInterceptor(getLoggingInterceptor())
+        .build();
+
+
+//    okHttpClient.interceptors().add(getHeaderInterceptor());
+ //   okHttpClient.interceptors().add(getLoggingInterceptor());
+
     mRestAdapter = new Retrofit.Builder().baseUrl("http://api-test.momoso.com/9394/ios/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
@@ -72,7 +75,6 @@ public final class RetrofitApiService {
 
   private static HttpLoggingInterceptor getLoggingInterceptor() {
     HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-
     switch ("body") {
       case "body":
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
@@ -120,7 +122,10 @@ public final class RetrofitApiService {
       }
       sHeaders.put(HeadersCollection.APP_VERSION, "android/" + info.versionName);
       sHeaders.put(HeadersCollection.APP_NAME, "android/" + info.packageName);
+      sHeaders.put("Cookie", "5d115b3a-d9c3-4110-83a0-70792037f76a");
+      //5d115b3a-d9c3-4110-83a0-70792037f76a
       sHeaders.put(HeadersCollection.MAC_ADDRESS, macAddr);
+
     } catch (PackageManager.NameNotFoundException ignore) {
       ignore.printStackTrace();
     }

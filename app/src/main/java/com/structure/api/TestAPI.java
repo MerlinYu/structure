@@ -4,9 +4,10 @@ package com.structure.api;
 import com.structure.main.moduledata.TestKeyData;
 import com.structure.main.weeatherdata.WeatherData;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+
 
 /**
  * Created by yuchao.
