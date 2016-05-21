@@ -1,4 +1,4 @@
-package com.structure.main.moduledata;
+package com.structure.main.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,11 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by yuchao.
  */
-public class TestKeyData  implements Parcelable{
-
-  @Expose
-  @SerializedName("message")
-  public String  message;
+public class TestKeyData  extends BaseResponse implements Parcelable{
 
   @Expose
   @SerializedName("keywords")
@@ -23,7 +19,6 @@ public class TestKeyData  implements Parcelable{
 
 
   protected TestKeyData(Parcel in) {
-    message = in.readString();
     keyList = in.createTypedArrayList(KeyWords.CREATOR);
   }
 
@@ -46,11 +41,10 @@ public class TestKeyData  implements Parcelable{
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
-    dest.writeString(message);
     dest.writeTypedList(keyList);
   }
 
   public String toString() {
-    return new StringBuffer().append("message = " + message + "\n" + keyList.toString()).toString();
+    return new StringBuffer().append("code" + code + "\n" + keyList.toString()).toString();
   }
 }

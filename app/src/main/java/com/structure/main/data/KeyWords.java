@@ -1,4 +1,4 @@
-package com.structure.main.moduledata;
+package com.structure.main.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -48,6 +48,7 @@ public class KeyWords implements Parcelable {
     dest.writeString(text);
   }
 
+  @Override
   public String toString() {
     StringBuffer buffer = new StringBuffer();
     return buffer.append("red = " + red + " text = " + text).toString() + "\n";

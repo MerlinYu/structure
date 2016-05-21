@@ -1,7 +1,10 @@
 package com.structure.api;
 
 
-import com.structure.main.moduledata.TestKeyData;
+import com.structure.main.data.BaseResponse;
+import com.structure.main.data.KeyWords;
+import com.structure.main.data.KeyWordsData;
+import com.structure.main.data.TestKeyData;
 import com.structure.main.weeatherdata.WeatherData;
 
 import retrofit2.Call;
@@ -20,6 +23,19 @@ public interface TestAPI {
 
   @GET("items/hot_keywords")
   Call<TestKeyData> getKeyWords();
+
+  @GET("items/hot_keywords")
+  Call<String> getKeyV1Words();
+
+  @GET("http://api-test.momoso.com/9394/ios/v2/items/hot_keywords")
+  Call<TestKeyData> getKeyV2Words();
+
+
+  @GET("http://api-test.momoso.com/9394/ios/v2/items/hot_keywords")
+  Call<BaseResponse<KeyWordsData>> getKeyV3Words();
+
+
+
 
 
 

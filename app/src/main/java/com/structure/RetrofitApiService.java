@@ -62,10 +62,6 @@ public final class RetrofitApiService {
         .addInterceptor(getLoggingInterceptor())
         .build();
 
-
-//    okHttpClient.interceptors().add(getHeaderInterceptor());
- //   okHttpClient.interceptors().add(getLoggingInterceptor());
-
     mRestAdapter = new Retrofit.Builder().baseUrl("http://api-test.momoso.com/9394/ios/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
@@ -77,7 +73,7 @@ public final class RetrofitApiService {
     HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
     switch ("body") {
       case "body":
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         break;
       case "none":
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
@@ -122,7 +118,7 @@ public final class RetrofitApiService {
       }
       sHeaders.put(HeadersCollection.APP_VERSION, "android/" + info.versionName);
       sHeaders.put(HeadersCollection.APP_NAME, "android/" + info.packageName);
-      sHeaders.put("Cookie", "5d115b3a-d9c3-4110-83a0-70792037f76a");
+      sHeaders.put("Cookie", "remember_token=558f647c20058915ffa8544f|7a679bc4a767620c597aedfcce835226273d16a2; session=f09841fd-350f-46ad-bd0b-bcc32111ead4");
       //5d115b3a-d9c3-4110-83a0-70792037f76a
       sHeaders.put(HeadersCollection.MAC_ADDRESS, macAddr);
 
