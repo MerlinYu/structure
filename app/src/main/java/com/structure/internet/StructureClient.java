@@ -1,8 +1,7 @@
 package com.structure.internet;
 
-import com.squareup.okhttp.OkHttpClient;
 
-import java.io.IOException;
+import okhttp3.OkHttpClient;
 
 
 /**

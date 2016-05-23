@@ -4,6 +4,12 @@ android {
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
 
+    compileOptions {
+        sourceCompatibility org.gradle.api.JavaVersion.VERSION_1_7
+        targetCompatibility org.gradle.api.JavaVersion.VERSION_1_7
+    }
+
+
     defaultConfig {
         applicationId "com.structure"
         minSdkVersion 21
@@ -17,34 +23,33 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+
+
+
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':annotationprocessor')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
 
-    /**internet */
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.google.code.gson:gson:2.3'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
-
-    /** event */
-    compile 'org.greenrobot:eventbus:3.0.0'
-
-    /**image */
-    compile 'com.squareup.picasso:picasso:2.5.2'
-
-    /** support UI design*/
-    compile 'com.android.support:design:23.0.0'
-    compile 'com.android.support:recyclerview-v7:23.0.0'
-    compile 'com.jakewharton:butterknife:6.1.0'
-
-    /** structure*/
-    compile 'io.reactivex:rxandroid:1.0.1'
-
+    compile libraries.AppCompat
+    compile libraries.Retrofit
+    compile libraries.OkHttp
+    compile libraries.Gson
+    compile libraries.RetrofitConverter
+    compile libraries.LoggingInterceptor
+    compile libraries.EventBus
+    compile libraries.Picasso
+    compile libraries.SupportDesign
+    compile libraries.RecyclerView
+    compile libraries.ButterKnife
+    compile libraries.RxAndroid
 
 
 }

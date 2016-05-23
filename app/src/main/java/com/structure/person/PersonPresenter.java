@@ -3,9 +3,7 @@ package com.structure.person;
 import com.structure.RetrofitApiService;
 import com.structure.base.ActivityModule;
 import com.structure.base.ActivityPresenter;
-import com.structure.person.userdata.User;
 
-import retrofit.Callback;
 
 /**
  * Created by yuchao.
@@ -19,21 +17,4 @@ public class PersonPresenter extends ActivityPresenter<PersonActivity, ActivityM
     super(mDisplay, RetrofitApiService.create(PersonApi.class, TAG));
 
   }
-/*
-
-  public void getUser() {
-    mModule.asRetrofit().getUserInfo("", new Callback<User>() {
-      @Override
-      public void success(User user, Response response) {
-
-      }
-
-      @Override
-      public void failure(RetrofitError error) {
-
-      }
-    });
-
-  }
-*/
 }

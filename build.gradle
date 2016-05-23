@@ -21,3 +21,39 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    buildToolsVersion = '23.0.2'
+    compileSdkVersion = 23
+    targetSdkVersion = 22
+    minSdkVersion = 16
+}
+
+ext.libraries = [
+        AppCompat         : "com.android.support:appcompat-v7:23.1.1",
+        /**internet */
+        Retrofit          : "com.squareup.retrofit2:retrofit:2.0.2",
+        OkHttp            : "com.squareup.okhttp3:okhttp:3.2.0",
+        Gson              : "com.google.code.gson:gson:2.3",
+        RetrofitConverter : "com.squareup.retrofit2:converter-gson:2.0.2",
+        LoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:3.2.0",
+
+        /** event */
+        EventBus          : "org.greenrobot:eventbus:3.0.0",
+
+        /**image */
+        Picasso           : "com.squareup.picasso:picasso:2.5.2",
+
+        /** support UI design*/
+        SupportDesign     : "com.android.support:design:23.0.0",
+        RecyclerView      : "com.android.support:recyclerview-v7:23.0.0",
+        ButterKnife       : "com.jakewharton:butterknife:6.1.0",
+
+        /** structure*/
+        RxAndroid         : "io.reactivex:rxandroid:1.0.1",
+
+        /**/
+        AutoService       : "com.google.auto.service:auto-service:1.0-rc2",
+        JavaWriter        : "com.squareup:javawriter:2.5.1",
+
+]

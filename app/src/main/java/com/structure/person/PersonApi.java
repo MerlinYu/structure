@@ -2,9 +2,9 @@ package com.structure.person;
 
 import com.structure.person.userdata.User;
 
-import retrofit.Callback;
-import retrofit.http.GET;
-import retrofit.http.Path;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+
 
 /**
  * Created by yuchao.
@@ -12,5 +12,5 @@ import retrofit.http.Path;
 public interface PersonApi {
 
   @GET("/user/{user}")
-  void getUserInfo(@Path("user") String user, Callback<User> callback);
+  void getUserInfo(@Path("user") String user);
 }
