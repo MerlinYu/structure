@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   @OnClick(R.id.btn)
   void btnClick(View v) {
     mPresenter.getTestKeyWord();
+
     //this.startActivity(PersonActivity.buildIntent(this, "yucaho"));
   /*  Intent intent = new Intent(this, TestActivity.class);
     this.startActivity(intent);

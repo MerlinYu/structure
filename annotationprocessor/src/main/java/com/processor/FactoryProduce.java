@@ -6,6 +6,7 @@ import javax.lang.model.element.TypeElement;
 
 /**
  * Created by yuchao on 5/23/16.
+ * when compile,the system will
  */
 public class FactoryProduce {
 

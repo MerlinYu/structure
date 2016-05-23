@@ -35,7 +35,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':annotationprocessor')
+   // compile project(':annotationprocessor')
+    compile project(':processorfactory')
     testCompile 'junit:junit:4.12'
 
     compile libraries.AppCompat
@@ -50,6 +51,4 @@ dependencies {
     compile libraries.RecyclerView
     compile libraries.ButterKnife
     compile libraries.RxAndroid
-
-
 }

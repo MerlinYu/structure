@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/6.1.0/63735f48b82bcd24cdd33821342428252eb1ca5a/butterknife-6.1.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="63735f48b82bcd24cdd33821342428252eb1ca5a">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/butterknife-6.1.0_ef7a084079304261567cef9a6046aee36c6bed27.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/com.google.auto/auto-common/0.3/4073ab16ab4aceb9a217273da6442166bf51ae16/auto-common-0.3.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="4073ab16ab4aceb9a217273da6442166bf51ae16">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/auto-common-0.3_f79ce724944d91dbe6777175449e176e79ddc244.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="40e7757d9b06db670062ddb3cf5b30c129b2fd8c">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.0.0_d315b7708787ebeafa43ab3e22f10dbb700beccd.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/org.greenrobot/eventbus/3.0.0/ddd99896e9569eaababbe81b35d80e1b91c4ad85/eventbus-3.0.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="ddd99896e9569eaababbe81b35d80e1b91c4ad85">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/eventbus-3.0.0_5df0f7668a155d05aefa513789e0c1d859142c97.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.2/43eeae0b9fb087bb3194ba59ab63a38a32fbf3e/retrofit-2.0.2.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="043eeae0b9fb087bb3194ba59ab63a38a32fbf3e">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/retrofit-2.0.2_7df646dcc493773b9c523c0683b634841143a3fc.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_fa1df91069291d367bef6b64e6afa8c730b28a01.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/exploded-aar/com.android.support/design/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8a5238e4bdcd6568b82db669d41817de670586b8">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.0.0_9020ef3b1ce6c98a6de9b3f9120e33c6a38befbd.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/AndroidStudioProjects/structure/processorfctory/build/libs/processorfctory.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="76dc503829c2ba887b036e2e24f6e70ad1bfb81c">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/processorfctory_b4364a90fd413b37a8f0529b8691385cdb157584.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/com.squareup/javawriter/2.5.1/54c87b3d91238e5b58e1a436d4916eee680ec959/javawriter-2.5.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="54c87b3d91238e5b58e1a436d4916eee680ec959">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/javawriter-2.5.1_96d94d8b9c0e6557a00417c04bc89d2612dc32e5.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/okio-1.6.0_c5fe06419273482c2b3a015cfd7ce18bdf62a647.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/AndroidStudioProjects/structure/annotationprocessor/build/libs/annotationprocessor.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="09189653a731968aec030d233e37b0da3c732d91">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/annotationprocessor_58ab1460d61b4c7b3805eb47c4d2c4da128ccf15.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.2.0/f7873a2ebde246a45c2a8d6f3247108b4c88a879/okhttp-3.2.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="f7873a2ebde246a45c2a8d6f3247108b4c88a879">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/okhttp-3.2.0_81aceae489c2ff8db8760db27024b8617ebf8fca.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/com.google.auto.service/auto-service/1.0-rc2/51033a5b8fcf7039159e35b6878f106ccd5fb35f/auto-service-1.0-rc2.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="51033a5b8fcf7039159e35b6878f106ccd5fb35f">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/auto-service-1.0-rc2_b13e4780cea4d91219d1ff3567c101a55b02713b.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/exploded-aar/io.reactivex/rxandroid/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="aa81bfe8c5cc88c2472ca936ae71f0c3dd1766df">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/io.reactivex-rxandroid-1.0.1_c1d2bb15347e8d1f435b5700b4ac03b94beba118.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/picasso-2.5.2_64ca6bb085dabd952408f0f013e8b9422876c651.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_d9521c5dea862b609f133d19bb16444be99747a3.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.6.1/b9d63507329a7178e026fc334f87587ee5070ac5/gson-2.6.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b9d63507329a7178e026fc334f87587ee5070ac5">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/gson-2.6.1_ce206df79c84a596008b66a659a7dbc66799abd2.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_71e7a910dce4eddb47533cb8225820894f898f80.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_0a6a1cea90d8664aa3ce08c8938b88ee700add38.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/logging-interceptor/3.2.0/a56f28d5b7fab623c6c1d2afa08dd496d873ac21/logging-interceptor-3.2.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a56f28d5b7fab623c6c1d2afa08dd496d873ac21">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/logging-interceptor-3.2.0_e337994b6ddb7ad26597ae6f9c94ca1a4d146a1a.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.0.13/b8668706414b5936d38c8a9e4c2be16e3c999c62/rxjava-1.0.13.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b8668706414b5936d38c8a9e4c2be16e3c999c62">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/rxjava-1.0.13_f91be92844f313e8c0ea8ccd8bbb68e9a6f18ec9.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.0.2/f8d87f15b94b8d74e7ccf61d7eedb558811cdb30/converter-gson-2.0.2.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="f8d87f15b94b8d74e7ccf61d7eedb558811cdb30">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/converter-gson-2.0.2_384f0fe7b9908b0e570c692de7892faeb3961aac.jar" />
+    </item>
+    <item
+        jar="/Users/chaoyu/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/18.0/cce0823396aa693798f8882e64213b1772032b09/guava-18.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="cce0823396aa693798f8882e64213b1772032b09">
+        <dex dex="/Users/chaoyu/AndroidStudioProjects/structure/app/build/intermediates/pre-dexed/debug/guava-18.0_50a67ac04b418b3fb022cfb4ac40b35ee08027c4.jar" />
+    </item>
+
+</items>
