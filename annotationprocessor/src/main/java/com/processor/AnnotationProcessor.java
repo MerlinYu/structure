@@ -101,6 +101,8 @@ public class AnnotationProcessor extends AbstractProcessor {
             .beginType(className, "class", EnumSet.of(Modifier.PUBLIC))
             .endType();
 
+
+
         javaWriter.close();
       } catch (IOException e) {
         messager.printMessage(Diagnostic.Kind.ERROR, "IOException");
