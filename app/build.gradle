@@ -16,6 +16,14 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
+        ndk {
+            moduleName "jni-hello"
+            ldLibs "log", "z", "m"
+            abiFilters "armeabi", "armeabi-v7a", "x86"
+        }
+
+
     }
     buildTypes {
         release {
@@ -24,11 +32,10 @@ android {
         }
     }
 
+
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
-
-
 
 }
 
@@ -37,6 +44,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
    // compile project(':annotationprocessor')
     compile project(':processorfactory')
+//    compile project(':jni')
     testCompile 'junit:junit:4.12'
 
     compile libraries.AppCompat

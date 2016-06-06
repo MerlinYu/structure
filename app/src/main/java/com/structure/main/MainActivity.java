@@ -2,6 +2,7 @@ package com.structure.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import com.squareup.picasso.Picasso;
 import com.structure.R;
 import com.structure.base.BaseActivity;
 import com.structure.person.PersonActivity;
+import com.structure.test.MyJniClass;
 import com.structure.test.TestActivity;
 
 import org.w3c.dom.Text;
@@ -63,7 +65,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
 
   @OnClick(R.id.btn)
   void btnClick(View v) {
-    mPresenter.getTestKeyWord();
+    Log.d("tag","=======================");
+    MyJniClass jniClass = new MyJniClass();
+    jniClass.JniPrint();
+
+    //mPresenter.getTestKeyWord();
+
 
     //this.startActivity(PersonActivity.buildIntent(this, "yucaho"));
   /*  Intent intent = new Intent(this, TestActivity.class);
