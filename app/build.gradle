@@ -59,4 +59,7 @@ dependencies {
     compile libraries.RecyclerView
     compile libraries.ButterKnife
     compile libraries.RxAndroid
+
+    debugCompile libraries.LeakCanaryDebug
+    releaseCompile libraries.LeakCanaryRelease
 }
