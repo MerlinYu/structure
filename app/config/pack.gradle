@@ -1,0 +1,59 @@
+
+android {
+
+  signingConfigs {
+    debug {
+      storeFile file("signed_key.jks")
+      storePassword "lucky%123789"
+      keyAlias "lucky"
+      keyPassword "lucky%123789"
+    }
+    release {
+      storeFile file("signed_key.jks")
+      storePassword "lucky%123789"
+      keyAlias "lucky"
+      keyPassword "lucky%123789"
+    }
+  }
+
+  buildTypes {
+    debug {
+      buildConfigField "String", "API_LOG_LEVEL", "\"full\""
+      minifyEnabled false
+      debuggable true
+    }
+
+    release {
+      buildConfigField "String", "API_LOG_LEVEL", "\"none\""
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+
+
+  productFlavors {
+    internal {
+      manifestPlaceholders = ["channel": "internal"]
+    }
+  }
+
+  // Packaging all channels' APKs
+  assembleRelease.doLast {
+    def releasePath
+    applicationVariants.all { variant ->
+      variant.outputs.each { output ->
+        if (output.outputFile.exists()) {
+          releasePath = output.outputFile.absolutePath
+        }
+      }
+    }
+
+    if (null != releasePath) {
+      println "release path = ${releasePath}"
+      def result = exec {
+        commandLine 'python', 'pack.py', releasePath, project.name
+      }
+      println result
+    }
+  }
+}

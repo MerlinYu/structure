@@ -49,6 +49,19 @@
         </activity>
 
 
+        <!--umeng start-->
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="{channel}" />
+
+        <meta-data android:name="TD_CHANNEL_ID"
+                   android:value="{channel}"/>
+
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="{channel}" />
+
+
     </application>
 
 </manifest>

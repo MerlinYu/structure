@@ -20,5 +20,43 @@
 -dontpreverify      #混淆时
 
 -keep public class * extends android.app.Activity # 保持不被混淆
+#忽略警告
+-dontwarn android.support.**
+-dontwarn com.google.auto.common.*
+-dontwarn javax.annotation.**
+-dontwarn com.processor.AnnotationProcessor
+-dontwarn com.google.auto.service.processor.*
+-dontwarn com.google.common.**
+-dontwarn om.processor.AnnotationProcesso
+-dontwarn com.processor.FactoryProduce
+-dontwarn com.squareup.javawriter.JavaWriter
+-dontwarn com.squareup.picasso.*
+-dontwarn okio.Okio
+-dontwarn okio.DeflaterSink
+-dontwarn rx.internal.util.**
+-dontwarn retrofit2.Platform$Java8
+-dontwarn okhttp3.internal.Platform
+
+#butterknife
+-dontwarn butterknife.internal.**
+-keep class **$$ViewInjector { *; }
+-keepnames class * { @butterknife.InjectView *;}
+
+#gson
+
+-keepattributes Signature
+
+# For using GSON @Expose annotation
+-keepattributes *Annotation*
+-keep class * {
+  @com.google.gson.annotations.Expose <fields>;
+  @com.google.gson.annotations.Expose <init>(...);
+}
+
+# Gson specific classes
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.stream.** { *; }
+
+
 
 

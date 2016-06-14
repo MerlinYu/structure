@@ -1,0 +1,9 @@
+{
+  "channels": [
+    {
+      "name": "weibo",
+      "channel": "weibo"
+    }
+  ],
+  "splash_icon": ["weibo"]
+}

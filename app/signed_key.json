@@ -1,0 +1,6 @@
+{
+  "storeFile":"signed_key.jks",
+  "storePwd":"lucky%123789",
+  "keyAlias":"lucky",
+  "keyPwd":"lucky%123789"
+}

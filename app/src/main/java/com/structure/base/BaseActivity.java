@@ -71,7 +71,6 @@ public abstract class BaseActivity<P extends ActivityPresenter> extends AppCompa
   protected void onStop() {
     super.onStop();
     lifeObserVable.onLifecycleChanged(this, LifecycleData.create(LifecycleEvent.STOP));
-
   }
 
   @Override

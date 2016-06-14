@@ -1,0 +1,177 @@
+{
+  "channels": [
+    {
+      "name": "paojiao",
+      "channel": "paojiao"
+    },
+    {
+      "name": "pinxiaotong",
+      "channel": "pinxiaotong"
+    },
+    {
+      "name": "dianxin",
+      "channel": "dianxin"
+    },
+    {
+      "name": "yidong",
+      "channel": "yidong"
+    },
+    {
+      "name": "liantong",
+      "channel": "liantong"
+    },
+    {
+      "name": "mi",
+      "channel": "mi"
+    },
+    {
+      "name": "meizu",
+      "channel": "meizu"
+    },
+    {
+      "name": "jinli",
+      "channel": "jinli"
+    },
+    {
+      "name": "vivo",
+      "channel": "vivo"
+    },
+    {
+      "name": "kupai",
+      "channel": "kupai"
+    },
+    {
+      "name": "lenovo",
+      "channel": "lenovo"
+    },
+    {
+      "name": "huawei",
+      "channel": "huawei"
+    },
+    {
+      "name": "oppo",
+      "channel": "oppo"
+    },
+    {
+      "name": "tencent",
+      "channel": "tencent"
+    },
+    {
+      "name": "_360",
+      "channel": "_360"
+    },
+    {
+      "name": "wandoujia",
+      "channel": "wandoujia"
+    },
+    {
+      "name": "baidu",
+      "channel": "baidu"
+    },
+    {
+      "name": "_91",
+      "channel": "_91"
+    },
+    {
+      "name": "UC",
+      "channel": "UC"
+    },
+    {
+      "name": "appchina",
+      "channel": "appchina"
+    },
+    {
+      "name": "anzhi",
+      "channel": "anzhi"
+    },
+    {
+      "name": "google",
+      "channel": "google"
+    },
+    {
+      "name": "sougoushichang",
+      "channel": "sougoushichang"
+    },
+    {
+      "name": "jifeng",
+      "channel": "jifeng"
+    },
+    {
+      "name": "wangyi",
+      "channel": "wangyi"
+    },
+    {
+      "name": "youyi",
+      "channel": "youyi"
+    },
+    {
+      "name": "sougouzhushou",
+      "channel": "sougouzhushou"
+    },
+    {
+      "name": "mumayi",
+      "channel": "mumayi"
+    },
+    {
+      "name": "Nduo",
+      "channel": "Nduo"
+    },
+    {
+      "name": "_3Gmenhu",
+      "channel": "_3Gmenhu"
+    },
+    {
+      "name": "feiliu",
+      "channel": "feiliu"
+    },
+    {
+      "name": "anji",
+      "channel": "anji"
+    },
+    {
+      "name": "anfen",
+      "channel": "anfen"
+    },
+    {
+      "name": "kaiqi",
+      "channel": "kaiqi"
+    },
+    {
+      "name": "ziti",
+      "channel": "ziti"
+    },
+    {
+      "name": "gdt",
+      "channel": "gdt"
+    },
+    {
+      "name": "qq",
+      "channel": "qq"
+    },
+    {
+      "name": "baidutuiguang",
+      "channel": "baidutuiguang"
+    },
+    {
+      "name": "fensitong",
+      "channel": "fensitong"
+    },
+    {
+      "name": "yingrui",
+      "channel": "yingrui"
+    },
+    {
+      "name": "samung",
+      "channel": "samung"
+    },
+    {
+      "name": "weibo",
+      "channel": "weibo"
+    },
+    {
+      "name": "leshi",
+      "channel": "leshi"
+    }
+  ],
+  "splash_icon": ["weibo","360"]
+}
