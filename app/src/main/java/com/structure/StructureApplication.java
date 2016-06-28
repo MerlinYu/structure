@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
+//import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.structure.collection.DeviceInfo;
@@ -33,6 +34,7 @@ public class StructureApplication extends Application {
     sApplication = this;
     initService();
     initDeviceInfo();
+//    Stetho.initializeWithDefaults(this);
   }
 
   private void initDeviceInfo() {

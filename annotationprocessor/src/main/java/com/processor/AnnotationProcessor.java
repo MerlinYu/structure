@@ -5,9 +5,13 @@ import com.google.auto.service.AutoService;
 import com.squareup.javawriter.JavaWriter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -133,8 +137,53 @@ public class AnnotationProcessor extends AbstractProcessor {
     task.setProcessors(Collections.singleton(new AnnotationProcessor()));
     task.call();
 */
+    ArrayList<String> capacityList = new ArrayList<>(2);
+    capacityList.add("hello");
+    capacityList.add(" world");
+    capacityList.add(" !");
+    System.out.println(capacityList.toString() + " length " + capacityList.size());
+
+
+    try {
+      Shape a = new Shape();
+      a.name = "merlin";
+      Shape b = (Shape)a.clone();
+      b.name = "smart ";
+      System.out.println("a " + a.name + " b " +b.name);
+      // 输出结果 merlin start
+
+    } catch (CloneNotSupportedException e) {
+      e.printStackTrace();
+    }
+
+    // arraylist 的克隆
+    ArrayList<String> bArray = (ArrayList<String>) capacityList.clone();
+    bArray.add(" who are you?");
+    System.out.println("a " +capacityList.toString() + " length " + capacityList.size());
+    System.out.println("b "+bArray.toString() + " length " + bArray.size());
+    // 输出结果：
+    // a [hello,  world,  !] length 3
+    // b [hello,  world,  !,  who are you?] length 4
+
+    HashMap<String, String> cityMap = new HashMap<>();
+    // hashmap的迭代方式
+    Iterator<Map.Entry<String, String>> it = cityMap.entrySet().iterator();
+    while (it.hasNext()) {
+      Map.Entry<String,String> entry = it.next();
+      entry.getValue();
+      entry.getKey();
+    }
+
   }
 
+  // 影子克隆也称简单克隆当类中属性是简单的String 类型时可以使用，如果类中有数组或复杂的类时必须使用尝试克隆
+  static class Shape implements Cloneable{
+    String name;
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+      return super.clone();
+    }
+  }
 
 }

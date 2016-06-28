@@ -28,13 +28,6 @@
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher"/>
         
-        <org.apmem.tools.layouts.FlowLayout
-            android:id="@+id/flow_btn_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-        </org.apmem.tools.layouts.FlowLayout>
 
 
     </LinearLayout>

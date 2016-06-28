@@ -1,21 +1,22 @@
 package com.structure.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.structure.R;
 import com.structure.base.BaseActivity;
 import com.structure.person.PersonActivity;
+import com.structure.tab.SimpleTabActivity;
 import com.structure.test.MyJniClass;
-import com.structure.test.TestActivity;
 
-import org.w3c.dom.Text;
+import org.apmem.tools.layouts.FlowLayout;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,10 +30,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
 
   @InjectView(R.id.text)
   public TextView mTextView;
-  @InjectView(R.id.btn)
-  public Button mBtn;
   @InjectView(R.id.image)
   public ImageView mImage;
+  @InjectView(R.id.flow_btn_layout)
+  public FlowLayout mFlowBtnLayout;
 
 
   @Override
@@ -56,59 +57,78 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
 
   @Override
   public void onViewCreated() {
-    setImage();
+    initFlowBtnLayout();
   }
 
-  public void refreshUI() {
+
+  private void initFlowBtnLayout() {
+    mFlowBtnLayout.removeAllViews();
+
+    Button tabBtn = new Button(this);
+    tabBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
+    tabBtn.setText("tab activity");
+    tabBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(SimpleTabActivity.buildIntent(MainActivity.this));
+      }
+    });
+    mFlowBtnLayout.addView(tabBtn);
+
+
+    Button picassoBtn = new Button(this);
+    picassoBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
+    picassoBtn.setText("picasso load image");
+    picassoBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String filePath = "http://pic74.nipic.com/file/20150728/18138004_201107753000_2.jpg";
+        Picasso.with(MainActivity.this)
+            .load(filePath)
+            .placeholder(R.mipmap.image_loading)
+            .into(mImage);
+      }
+    });
+    mFlowBtnLayout.addView(picassoBtn);
+
+    Button personBtn = new Button(this);
+    personBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
+    personBtn.setText("person recyclerview");
+    personBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(PersonActivity.buildIntent(MainActivity.this, " merlin"));
+
+      }
+    });
+    mFlowBtnLayout.addView(personBtn);
+
+    Button jniBtn = new Button(this);
+    jniBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
+    jniBtn.setText(" jni btn");
+    jniBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        MyJniClass jniClass = new MyJniClass();
+        jniClass.JniPrint();
+        Toast.makeText(MainActivity.this, jniClass.getJniDisplayName(), Toast.LENGTH_SHORT).show();
+      }
+    });
+
+    mFlowBtnLayout.addView(jniBtn);
 
   }
 
-  @OnClick(R.id.btn)
-  void btnClick(View v) {
-    Log.d("tag","=======================");
-    MyJniClass jniClass = new MyJniClass();
-    jniClass.JniPrint();
-
-    //mPresenter.getTestKeyWord();
-
-
-    //this.startActivity(PersonActivity.buildIntent(this, "yucaho"));
-  /*  Intent intent = new Intent(this, TestActivity.class);
-    this.startActivity(intent);
-  */
-
-  }
 
   public void setTextView(String text) {
     mTextView.setText(text);
   }
 
 
-  void setImage() {
-    String filePath = "file:///storage/emulated/0/DCIM/Camera/IMG_20160314_163549.jpg";
-    Picasso.with(this).load(filePath).into(mImage);
-  }
-
-
-  void test() {
-    String test = "test";
-    Set<String> setList = new HashSet<>();
-    setList.add(test);
-    setList.add(test);
-//        getClass();
-    getClass().getSimpleName();
-    try {
-      getClass().getName();
-      getClass().newInstance();
-      Class.forName("Shape");
-    } catch (Exception e) {
-
-    }
-  }
-
-  class Shape {
-
-  }
 
 
 }

@@ -31,7 +31,7 @@ public interface TestAPI {
   Call<TestKeyData> getKeyV2Words();
 
 
-  @GET("http://api-test.momoso.com/9394/ios/v2/items/hot_keywords")
+  @GET("http://api-test.momoso.com/9394/ios/v1/items/hot_keywords")
   Call<BaseResponse<KeyWordsData>> getKeyV3Words();
 
 

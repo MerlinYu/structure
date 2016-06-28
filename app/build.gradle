@@ -47,9 +47,15 @@ dependencies {
     compile libraries.Picasso
     compile libraries.SupportDesign
     compile libraries.RecyclerView
+    compile libraries.FlowLayout
     compile libraries.ButterKnife
     compile libraries.RxAndroid
+    compile libraries.V4
+
+//    debugCompile libraries.Stetho
+//    debugCompile libraries.StethoOkhttp
 
     debugCompile libraries.LeakCanaryDebug
     releaseCompile libraries.LeakCanaryRelease
+
 }

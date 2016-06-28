@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">Structure</string>
 
+    <string name="json_array">
+        {
+          \"tabs\": [
+            {
+              \"title\": \"热门\",
+              \"path\": \"page_view/home_timeline\",
+              \"method\": \"GET\"
+            },
+            {
+              \"title\": \"服饰\",
+              \"path\": \"page_view/home_category\",
+              \"method\": \"GET\"
+            }
+          ]
+        }
+    </string>
+
 </resources>

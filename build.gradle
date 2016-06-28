@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.1.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -30,35 +30,41 @@ ext {
 
 }
 
+def support_version = '23.2.1'
+
 ext.libraries = [
         AppCompat         : "com.android.support:appcompat-v7:23.1.1",
-        /**internet */
+        /** UI design*/
+        SupportDesign     : "com.android.support:design:$support_version",
+        V4                : "com.android.support:support-v4:$support_version",
+        SupportAnnotations: "com.android.support:support-annotations:$support_version",
+        RecyclerView      : "com.android.support:recyclerview-v7:$support_version",
+        FlowLayout        : "org.apmem.tools:layouts:1.9@aar",
+
+
+        /**retrofit */
         Retrofit          : "com.squareup.retrofit2:retrofit:2.0.2",
         OkHttp            : "com.squareup.okhttp3:okhttp:3.2.0",
         Gson              : "com.google.code.gson:gson:2.3",
         RetrofitConverter : "com.squareup.retrofit2:converter-gson:2.0.2",
         LoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:3.2.0",
 
-        /** event */
+        /** structure*/
+        RxAndroid         : "io.reactivex:rxandroid:1.0.1",
         EventBus          : "org.greenrobot:eventbus:3.0.0",
+        ButterKnife       : "com.jakewharton:butterknife:6.1.0",
 
         /**image */
         Picasso           : "com.squareup.picasso:picasso:2.5.2",
-
-        /** support UI design*/
-        SupportDesign     : "com.android.support:design:23.0.0",
-        RecyclerView      : "com.android.support:recyclerview-v7:23.0.0",
-        ButterKnife       : "com.jakewharton:butterknife:6.1.0",
-
-        /** structure*/
-        RxAndroid         : "io.reactivex:rxandroid:1.0.1",
 
         /** java processor animation*/
         AutoService       : "com.google.auto.service:auto-service:1.0-rc2",
         JavaWriter        : "com.squareup:javawriter:2.5.1",
 
-
-        /**leaks*/
+        /** debug */
         LeakCanaryDebug   : "com.squareup.leakcanary:leakcanary-android:1.3",
         LeakCanaryRelease : "com.squareup.leakcanary:leakcanary-android-no-op:1.3",
+        Stetho            : "com.facebook.stetho:stetho:1.3.1'",
+        StethoOkhttp      : "com.facebook.stetho:stetho-okhttp3:1.3.1",
+
 ]
