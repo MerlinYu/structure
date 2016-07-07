@@ -1,7 +1,12 @@
 package com.structure.test;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by yuchao on 6/6/16.
@@ -14,7 +19,6 @@ public class TestAlgorithm {
 
     //intersect(aa,bb);
     reverseVowels("hello, mast,you heb,yoiu, are ");
-
   }
 
 

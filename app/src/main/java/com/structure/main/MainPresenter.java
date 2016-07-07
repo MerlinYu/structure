@@ -13,6 +13,10 @@ import com.structure.main.data.BaseResponse;
 import com.structure.main.data.KeyWords;
 import com.structure.main.data.KeyWordsData;
 import com.structure.main.data.TestKeyData;
+import com.structure.person.event.GenerateCardEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 
@@ -52,58 +56,30 @@ public class MainPresenter extends ActivityPresenter<MainActivity, ActivityModul
 
       }
     });
-//    mCallManager.addRetrofitCall(call, name);
-
-
-  /*  call.enqueue(new Callback<TestKeyData>() {
-      @Override
-      public void onResponse(Call<TestKeyData> call, Response<TestKeyData> response) {
-        String str = response.isSuccessful() ? "success" : "failed";
-        Log.d(TAG, "  ==========" + str);
-
-      }
-
-      @Override
-      public void onFailure(Call<TestKeyData> call, Throwable t) {
-
-      }
-    });
-*/
-
- /*   mModule.asRetrofit().getKeyV1Words().enqueue(new Callback<String>() {
-      @Override
-      public void onResponse(Call<String> call, Response<String> response) {
-        String str = response.isSuccessful() ? "success" : "failed";
-        Log.d(TAG, "  ======v1====" +str);
-      }
-
-      @Override
-      public void onFailure(Call<String> call, Throwable t) {
-        Log.d(TAG, "  ======v1====" +" error " + t.getMessage());
-
-      }
-    });
-*/
-/*
-    mModule.asRetrofit().getKeyV2Words().enqueue(new Callback<TestKeyData>() {
-      @Override
-      public void onResponse(Call<TestKeyData> call, Response<TestKeyData> response) {
-        String str = response.isSuccessful() ? "success" : "failed";
-        Log.d(TAG, "  ======v2====" +str);
-        Log.d(TAG, "  ======v2====" +response.errorBody().toString());
-//        Log.d(TAG, "  ======v2====" + response.body().toString());
-
-      }
-
-      @Override
-      public void onFailure(Call<TestKeyData> call, Throwable t) {
-
-      }
-    });
-*/
   }
 
 
+  @Override
+  protected void onCreate() {
+    super.onCreate();
+    Log.v("===tag=== ", " on create presenter ");
+    EventBus.getDefault().register(this);
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    Log.v("===tag=== ", " on destroy presenter ");
+
+    EventBus.getDefault().unregister(this);
+  }
+
+  @Subscribe
+  public void onEventMainThread(GenerateCardEvent event) {
+    if (event.result == GenerateCardEvent.SUCCESS) {
+      mDisplay.setImage(event.cardUri);
+    }
+  }
 
 
 }

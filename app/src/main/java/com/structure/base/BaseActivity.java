@@ -19,7 +19,7 @@ public abstract class BaseActivity<P extends ActivityPresenter> extends AppCompa
 
   protected P mPresenter;
   protected View contentView;
-  private LifecycleObservable<BaseActivity> lifeObserVable = new LifecycleObservable<>();
+  private LifecycleObservable<BaseActivity> lifeObserver = new LifecycleObservable<>();
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,8 +39,8 @@ public abstract class BaseActivity<P extends ActivityPresenter> extends AppCompa
     }
     onViewCreated();
     mPresenter = createPresenter();
-    lifeObserVable.subscribe(mPresenter);
-    lifeObserVable.onLifecycleChanged(this, LifecycleData.create(LifecycleEvent.CREATE));
+    lifeObserver.subscribe(mPresenter);
+    lifeObserver.onLifecycleChanged(this, LifecycleData.create(LifecycleEvent.CREATE));
 
   }
 
@@ -63,32 +63,32 @@ public abstract class BaseActivity<P extends ActivityPresenter> extends AppCompa
   @Override
   protected void onStart() {
     super.onStart();
-    lifeObserVable.onLifecycleChanged(this, LifecycleData.create(LifecycleEvent.START));
+    lifeObserver.onLifecycleChanged(this, LifecycleData.create(LifecycleEvent.START));
 
   }
 
   @Override
   protected void onStop() {
     super.onStop();
-    lifeObserVable.onLifecycleChanged(this, LifecycleData.create(LifecycleEvent.STOP));
+    lifeObserver.onLifecycleChanged(this, LifecycleData.create(LifecycleEvent.STOP));
   }
 
   @Override
   protected void onResume() {
     super.onResume();
-    lifeObserVable.onLifecycleChanged(this, LifecycleData.create(LifecycleEvent.RESUME));
+    lifeObserver.onLifecycleChanged(this, LifecycleData.create(LifecycleEvent.RESUME));
   }
 
   @Override
   protected void onDestroy() {
     ButterKnife.reset(this);
-    lifeObserVable.onLifecycleChanged(this, LifecycleData.create(LifecycleEvent.DESTROY));
-    lifeObserVable.unsubscribe(mPresenter);
-    lifeObserVable.clear();
+    lifeObserver.onLifecycleChanged(this, LifecycleData.create(LifecycleEvent.DESTROY));
+    lifeObserver.unsubscribe(mPresenter);
+    lifeObserver.clear();
     if (null != mPresenter) {
       mPresenter = null;
     }
-    lifeObserVable = null;
+    lifeObserver = null;
     super.onDestroy();
     StructureApplication.watchRef(this);
   }

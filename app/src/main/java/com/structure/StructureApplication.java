@@ -42,6 +42,8 @@ public class StructureApplication extends Application {
     DisplayMetrics dm = this.getResources().getDisplayMetrics();
     DeviceInfo.screenHeight = dm.heightPixels;
     DeviceInfo.screenWidth = dm.widthPixels;
+    DeviceInfo.density = dm.density;
+
 
   }
 

@@ -9,9 +9,9 @@ public class DeviceInfo {
 
 
   /**
-   * 屏幕密度
+   * 相对于160dp的分辨倍数
    */
-  public static int denisty;
+  public static float density;
   /**
    * 手机品牌
    */
