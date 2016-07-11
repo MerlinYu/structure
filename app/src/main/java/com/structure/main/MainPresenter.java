@@ -63,6 +63,7 @@ public class MainPresenter extends ActivityPresenter<MainActivity, ActivityModul
   protected void onCreate() {
     super.onCreate();
     Log.v("===tag=== ", " on create presenter ");
+//    android.R.styleable
     EventBus.getDefault().register(this);
   }
 

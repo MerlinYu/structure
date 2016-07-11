@@ -1,12 +1,20 @@
 package com.structure.main;
 
 import android.content.ComponentName;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextPaint;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,9 +27,11 @@ import com.structure.tab.SimpleTabActivity;
 import com.structure.test.MyJniClass;
 import com.structure.utils.FileUtils;
 import com.structure.utils.GenerateBitmapTask;
+import com.structure.widget.LoadingDialog;
+import com.structure.widget.TouchLayout;
+import com.structure.widget.TouchView;
 
 import org.apmem.tools.layouts.FlowLayout;
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 
@@ -31,7 +41,7 @@ import butterknife.InjectView;
 /***/
 public class MainActivity extends BaseActivity<MainPresenter> implements MainDisplay {
 
-  private final static String TAG = "===tag=== ";
+  private final static String TAG = "===activity=== ";
 
   @InjectView(R.id.text)
   public TextView mTextView;
@@ -41,13 +51,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   public FlowLayout mFlowBtnLayout;
   @InjectView(R.id.image_circle)
   ImageView mCircleImage;
+  @InjectView(R.id.touch_layout)
+  TouchLayout mTouchLayout;
+  @InjectView(R.id.touch_text_view)
+  TouchView mTouchView;
 //  Activity
 
+  //TODO:数据库，RXAndroid 
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     LogV("on create "+(savedInstanceState==null));
+    setTouchListener();
+
   }
 
   @Override
@@ -105,7 +122,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     Button personBtn = new Button(this);
     personBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
-    personBtn.setText("person recyclerview");
+    personBtn.setText("person zone");
     personBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -125,6 +142,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
         MyJniClass jniClass = new MyJniClass();
         jniClass.JniPrint();
         Toast.makeText(MainActivity.this, jniClass.getJniDisplayName(), Toast.LENGTH_SHORT).show();
+        int d = mTextView.getCompoundDrawablePadding();
+        float space = mTextView.getLetterSpacing();
+        TextPaint textPaint = mTextView.getPaint();
       }
     });
 
@@ -139,7 +159,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
       public void onClick(View v) {
         String data = "Hello I am a system builder!";
         FileUtils.writeCacheFile(MainActivity.this,FileUtils.FILE_CACHE, data.getBytes());
-        FileUtils.readFileByte(new File(FileUtils.getCacheDir(MainActivity.this), FileUtils.FILE_CACHE));
+        File file = new File(FileUtils.getCacheDir(MainActivity.this), FileUtils.FILE_CACHE);
+        FileUtils.readFileByte(file);
+        Toast.makeText(MainActivity.this, file.getAbsolutePath(), Toast.LENGTH_LONG).show();
       }
     });
     mFlowBtnLayout.addView(fileBtn);
@@ -180,9 +202,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
         task.execute(userCard);
         }
     });
-
     mFlowBtnLayout.addView(canvasBtn);
 
+    Button animBtn = new Button(this);
+    animBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
+    animBtn.setText("loading 动画");
+    animBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        LoadingDialog dialog = LoadingDialog.getIntent(MainActivity.this);
+        dialog.show();
+       }
+    });
+    mFlowBtnLayout.addView(animBtn);
   }
 
 
@@ -191,8 +224,31 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   }
 
   public void setImage(Uri uri) {
-    LogV("uri path "+uri.getPath());
-    Picasso.with(this).load(uri).into(mImage);
+    Toast.makeText(this,"名片地址：" + uri.getPath(),Toast.LENGTH_LONG).show();
+    final FrameLayout frameLayout = new FrameLayout(this);
+    FrameLayout.LayoutParams frameLayoutParams =
+        new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT);
+    frameLayout.setLayoutParams(frameLayoutParams);
+    frameLayout.setBackground(new ColorDrawable(0x5f000000));
+    frameLayout.setOnTouchListener(new View.OnTouchListener() {
+      @Override
+      public boolean onTouch(View v, MotionEvent event) {
+        frameLayout.setVisibility(View.GONE);
+        return true;
+      }
+    });
+
+    ImageView cardView = new ImageView(this);
+    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+    cardView.setLayoutParams(params);
+    params.gravity = Gravity.CENTER;
+    frameLayout.addView(cardView);
+    Picasso.with(this).load(uri).into(cardView);
+
+//    getWindow().getDecorView().setBackground(new ColorDrawable(Color.TRANSPARENT));
+//    getWindow().setContentView(cardView);
+    getWindow().addContentView(frameLayout,frameLayoutParams);
   }
 
   @Override
@@ -248,11 +304,54 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   @Override
   protected void onRestoreInstanceState(Bundle savedInstanceState) {
     super.onRestoreInstanceState(savedInstanceState);
-    LogV("on restore" + (savedInstanceState==null));
+    LogV("on restore " + (savedInstanceState==null));
   }
 
   private void LogV(String log) {
     Log.v(TAG, log);
   }
+
+
+  @Override
+  public void setFinishOnTouchOutside(boolean finish) {
+    super.setFinishOnTouchOutside(finish);
+  }
+
+  @Override
+  public boolean onTouchEvent(MotionEvent event) {
+    LogV("onTouchEvent action = " + MotionEvent.actionToString(event.getAction()));
+    return super.onTouchEvent(event);
+  }
+
+
+  @Override
+  public boolean dispatchTouchEvent(MotionEvent ev) {
+    LogV("dispatchTouchEvent action = " + MotionEvent.actionToString(ev.getAction()));
+    return super.dispatchTouchEvent(ev);
+  }
+
+
+  private void setTouchListener() {
+//    mTouchLayout.setOnTouchListener(new );
+    mTouchLayout.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        LogV("click component name = "+v.getClass().getName());
+      }
+    });
+
+    mTouchView.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        LogV("click component name = "+v.getClass().getName());
+      }
+    });
+  }
+
+
+
+
+
+
 
 }

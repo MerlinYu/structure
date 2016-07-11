@@ -1,13 +1,24 @@
 package com.structure.test;
 
-import android.graphics.drawable.NinePatchDrawable;
+
+import android.widget.TextView;
+
+import java.lang.annotation.Documented;
 
 /**
  * Created by yuchao on 6/14/16.
  */
+
 public class TestJava {
 
-  public static String NAME = "Merlin";
+  public static final String NAME = "Merlin";
+  String TAG = "tag";
+  private static final int MAX = 1024;
+  private static final int MIN = 1;
+  private static int tempLength = 1024;
+  private static int mixLength = 0;
+
+
 
   public void TestString(String string) {
     System.out.println("===string=== " + string.hashCode());
@@ -27,13 +38,34 @@ public class TestJava {
   }
 
   public static void main(String args[]) {
+    int number = MAX * MIN;
+    int length = mixLength + tempLength;
+    int size = number * length;
+//    TextView
+
+
+    String log = "tag";
+
     TestJava test = new TestJava();
     System.out.println("===name=== " + NAME + NAME.hashCode());
 
     String name = new String("test");
     test.TestString(name);
+    test.test();
     System.out.println("===string=== " + name + name.hashCode());
 
 
   }
+
+
+  @Deprecated // 过时的方法
+  public void test() {
+
+  }
+
+  public void testD(){
+
+  }
+
+//  public void
 }
