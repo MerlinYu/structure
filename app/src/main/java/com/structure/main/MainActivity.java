@@ -1,13 +1,9 @@
 package com.structure.main;
 
 import android.content.ComponentName;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextPaint;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -24,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import com.structure.R;
 import com.structure.StructureApplication;
 import com.structure.base.BaseActivity;
+import com.structure.main.data.weather.WeatherData;
 import com.structure.person.PersonActivity;
 import com.structure.person.userdata.UserCard;
 import com.structure.tab.SimpleTabActivity;
@@ -117,7 +114,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
       @Override
       public void onClick(View v) {
         startActivity(PersonActivity.buildIntent(MainActivity.this, " merlin"));
-
       }
     });
     mFlowBtnLayout.addView(personBtn);
@@ -230,6 +226,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     });
     mFlowBtnLayout.addView(databaseBtn);
 
+    Button retrofitBtn = new Button(this);
+    retrofitBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
+    retrofitBtn.setText("retrofit 2.0 网络请求");
+    retrofitBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        mPresenter.getShenZhenWeather();
+      }
+    });
+    mFlowBtnLayout.addView(retrofitBtn);
 
 
   }
@@ -363,6 +370,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     });
   }
 
+
+  public void showWeather(WeatherData data) {
+    Toast.makeText(this,"shen zhen weather \n" + data, Toast.LENGTH_LONG).show();
+  }
 
 
 }

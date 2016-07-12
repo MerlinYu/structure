@@ -73,7 +73,10 @@ ext.libraries = [
         // If you need StorIO for ContentResolver
         StorIoContent     : "com.pushtorefresh.storio:content-resolver:1.9.1",
         StorIoAnnotation  : "com.pushtorefresh.storio:sqlite-annotations:1.9.1",
-        StorIoAnnotationProcessor: "com.pushtorefresh.storio:sqlite-annotations-processor:1.9.1"
+        StorIoAnnotationProcessor: "com.pushtorefresh.storio:sqlite-annotations-processor:1.9.1",
+
+        /**log*/
+        Timber : "com.jakewharton.timber:timber:4.1.2"
 
 
 

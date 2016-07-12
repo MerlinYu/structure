@@ -92,4 +92,9 @@ public abstract class BaseActivity<P extends ActivityPresenter> extends AppCompa
     super.onDestroy();
     StructureApplication.watchRef(this);
   }
+
+  //TODO:增加activity 界面是否存在的判定
+  public boolean isUiVisible() {
+    return true;
+  }
 }

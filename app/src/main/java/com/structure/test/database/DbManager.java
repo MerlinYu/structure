@@ -111,6 +111,8 @@ public final class DbManager {
         .asObservable();
   }
 
+  //TODO: cursor
+
 
 
   private DefaultStorIOSQLite getDefaultSQLite() {

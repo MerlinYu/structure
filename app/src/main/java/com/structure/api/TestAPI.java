@@ -2,10 +2,9 @@ package com.structure.api;
 
 
 import com.structure.main.data.BaseResponse;
-import com.structure.main.data.KeyWords;
 import com.structure.main.data.KeyWordsData;
 import com.structure.main.data.TestKeyData;
-import com.structure.main.weeatherdata.WeatherData;
+import com.structure.main.data.weather.WeatherData;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

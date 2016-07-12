@@ -22,6 +22,8 @@ public class TradeHistoryTable {
      .addTextColumn(COLUMN_CONTENT)
      .build();
 
+  //TODO: drop table
+
 
   public static Query queryByName(final String name) {
     return Query.builder()

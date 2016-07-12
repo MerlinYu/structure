@@ -2,23 +2,19 @@ package com.structure.main;
 
 
 import android.util.Log;
-import android.util.TimeFormatException;
-import android.widget.Toast;
 
 import com.structure.RetrofitApiService;
 import com.structure.api.TestAPI;
 import com.structure.base.ActivityModule;
 import com.structure.base.ActivityPresenter;
 import com.structure.main.data.BaseResponse;
-import com.structure.main.data.KeyWords;
 import com.structure.main.data.KeyWordsData;
-import com.structure.main.data.TestKeyData;
+import com.structure.main.data.weather.WeatherData;
 import com.structure.person.event.GenerateCardEvent;
+import com.structure.widget.LoadingDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,7 +26,9 @@ import retrofit2.Response;
  */
 public class MainPresenter extends ActivityPresenter<MainActivity, ActivityModule<TestAPI>> {
 
-  final static String TAG = "===tag===";
+  final static String TAG = "===MainPresenter=== ";
+  LoadingDialog dialog;
+
 
   public MainPresenter(MainActivity mDisplay) {
     super(mDisplay, RetrofitApiService.create(TestAPI.class, TAG));
@@ -58,27 +56,74 @@ public class MainPresenter extends ActivityPresenter<MainActivity, ActivityModul
     });
   }
 
+  public void getShenZhenWeather() {
+    String city = "ShenZhen";
+    String appId = "ea574594b9d36ab688642d5fbeab847e";
+    showLoadingDialog();
+    mModule.asRetrofit().getWeatherFromApi(city,appId).enqueue(new Callback<WeatherData>() {
+      @Override
+      public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
+        Log.v(TAG, " get shen zhen weather");
+        if (response.isSuccessful()) {
+          if (null != response.body()) {
+            WeatherData data = response.body();
+            mDisplay.showWeather(data);
+          }
+        }
+        if (!mDisplay.isDestroyed()) {
+          dismissLoadingDialog();
+        }
+      }
+
+      @Override
+      public void onFailure(Call<WeatherData> call, Throwable t) {
+        if (!mDisplay.isDestroyed()) {
+          dismissLoadingDialog();
+        }
+      }
+    });
+  }
+
 
   @Override
   protected void onCreate() {
     super.onCreate();
-    Log.v("===tag=== ", " on create presenter ");
+    Log.v(TAG, " on create presenter ");
 //    android.R.styleable
     EventBus.getDefault().register(this);
   }
 
   @Override
   protected void onDestroy() {
+    if (null != dialog) {
+      if (dialog.isShowing()) {
+        dialog.dismiss();
+      }
+      dialog = null;
+    }
     super.onDestroy();
-    Log.v("===tag=== ", " on destroy presenter ");
-
+    Log.v(TAG, " on destroy presenter ");
     EventBus.getDefault().unregister(this);
   }
+
 
   @Subscribe
   public void onEventMainThread(GenerateCardEvent event) {
     if (event.result == GenerateCardEvent.SUCCESS) {
       mDisplay.setImage(event.cardUri);
+    }
+  }
+
+  public void showLoadingDialog() {
+    if (null == dialog) {
+      dialog = new LoadingDialog(getDisplay());
+    }
+    dialog.show();
+  }
+
+  public void dismissLoadingDialog() {
+    if (dialog.isShowing()) {
+      dialog.dismiss();
     }
   }
 
