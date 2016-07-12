@@ -1,7 +1,6 @@
 package com.structure.widget;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.drawable.AnimationDrawable;
 import android.util.AttributeSet;
 import android.util.Log;

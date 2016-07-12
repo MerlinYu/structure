@@ -51,6 +51,7 @@
         </activity>
 
 
+
         <!--umeng start-->
         <meta-data
             android:name="UMENG_CHANNEL"

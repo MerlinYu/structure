@@ -18,13 +18,19 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.pushtorefresh.storio.sqlite.queries.DeleteQuery;
 import com.squareup.picasso.Picasso;
 import com.structure.R;
+import com.structure.StructureApplication;
 import com.structure.base.BaseActivity;
 import com.structure.person.PersonActivity;
 import com.structure.person.userdata.UserCard;
 import com.structure.tab.SimpleTabActivity;
 import com.structure.test.MyJniClass;
+import com.structure.test.database.DbManager;
+import com.structure.test.database.TradeHistory;
+import com.structure.test.database.TradeHistoryTable;
 import com.structure.utils.FileUtils;
 import com.structure.utils.GenerateBitmapTask;
 import com.structure.widget.LoadingDialog;
@@ -103,22 +109,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     mFlowBtnLayout.addView(tabBtn);
 
 
-    Button picassoBtn = new Button(this);
-    picassoBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-        ViewGroup.LayoutParams.WRAP_CONTENT));
-    picassoBtn.setText("picasso load image");
-    picassoBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        String filePath = "http://pic74.nipic.com/file/20150728/18138004_201107753000_2.jpg";
-        Picasso.with(MainActivity.this)
-            .load(filePath)
-            .placeholder(R.mipmap.image_loading)
-            .into(mImage);
-      }
-    });
-    mFlowBtnLayout.addView(picassoBtn);
-
     Button personBtn = new Button(this);
     personBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -142,9 +132,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
         MyJniClass jniClass = new MyJniClass();
         jniClass.JniPrint();
         Toast.makeText(MainActivity.this, jniClass.getJniDisplayName(), Toast.LENGTH_SHORT).show();
-        int d = mTextView.getCompoundDrawablePadding();
-        float space = mTextView.getLetterSpacing();
-        TextPaint textPaint = mTextView.getPaint();
       }
     });
 
@@ -169,13 +156,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     Button circleBtn = new Button(this);
     circleBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
-    circleBtn.setText("自定义圆角图片");
+    circleBtn.setText("picasso + 自定义圆角图片");
     circleBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         String filePath = "http://pic74.nipic.com/file/20150728/18138004_201107753000_2.jpg";
         Picasso.with(MainActivity.this)
             .load(filePath)
+            .resize(300,300)
+            .centerCrop()
             .placeholder(R.mipmap.image_loading)
             .into(mCircleImage);
       }
@@ -216,6 +205,33 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
        }
     });
     mFlowBtnLayout.addView(animBtn);
+
+    final Button databaseBtn = new Button(this);
+    databaseBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
+    databaseBtn.setText("数据库读写");
+    databaseBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        DbManager dbManager = DbManager.getInstance();
+        TradeHistory trade = new TradeHistory("2014","2015","hello database!");
+        dbManager.Put(trade);
+        TradeHistory tradeHistory = dbManager.Get(TradeHistory.class, TradeHistoryTable.queryByName("2014"));
+        Toast.makeText(StructureApplication.sApplication, "write and read  " + tradeHistory.toString(),Toast.LENGTH_LONG).show();
+      //  dbManager.Delete(trade);
+        dbManager.Delete(DeleteQuery.builder().table(TradeHistoryTable.TABLE).build());
+        tradeHistory = dbManager.Get(TradeHistory.class, TradeHistoryTable.queryByName("2014"));
+        String deleteResult = "删除成功";
+        if (null != tradeHistory) {
+          deleteResult = "删除失败";
+        }
+        Toast.makeText(StructureApplication.sApplication, "delete database " + deleteResult,Toast.LENGTH_LONG).show();
+      }
+    });
+    mFlowBtnLayout.addView(databaseBtn);
+
+
+
   }
 
 
@@ -319,20 +335,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
-    LogV("onTouchEvent action = " + MotionEvent.actionToString(event.getAction()));
+//    LogV("onTouchEvent action = " + MotionEvent.actionToString(event.getAction()));
     return super.onTouchEvent(event);
   }
 
 
   @Override
   public boolean dispatchTouchEvent(MotionEvent ev) {
-    LogV("dispatchTouchEvent action = " + MotionEvent.actionToString(ev.getAction()));
+//    LogV("dispatchTouchEvent action = " + MotionEvent.actionToString(ev.getAction()));
     return super.dispatchTouchEvent(ev);
   }
 
 
   private void setTouchListener() {
-//    mTouchLayout.setOnTouchListener(new );
     mTouchLayout.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -347,10 +362,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
       }
     });
   }
-
-
-
-
 
 
 
