@@ -1,6 +1,7 @@
 package com.structure.main;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.structure.R;
 import com.structure.StructureApplication;
 import com.structure.base.BaseActivity;
 import com.structure.main.data.weather.WeatherData;
+import com.structure.main.rx.RxActivity;
 import com.structure.person.PersonActivity;
 import com.structure.person.userdata.UserCard;
 import com.structure.tab.SimpleTabActivity;
@@ -33,11 +35,8 @@ import com.structure.utils.GenerateBitmapTask;
 import com.structure.widget.LoadingDialog;
 import com.structure.widget.TouchLayout;
 import com.structure.widget.TouchView;
-
 import org.apmem.tools.layouts.FlowLayout;
-
 import java.io.File;
-
 import butterknife.InjectView;
 
 
@@ -237,6 +236,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
       }
     });
     mFlowBtnLayout.addView(retrofitBtn);
+
+    Button rxBtn = new Button(this);
+    rxBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
+    rxBtn.setText("RXJAVA ");
+    rxBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+//        mPresenter.getShenZhenWeather();
+        Intent intent = new Intent(MainActivity.this, RxActivity.class);
+        startActivity(intent);
+      }
+    });
+    mFlowBtnLayout.addView(rxBtn);
 
 
   }

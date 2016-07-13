@@ -9,6 +9,7 @@ import com.structure.main.data.weather.WeatherData;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import rx.Observable;
 
 
 /**
@@ -19,6 +20,10 @@ public interface TestAPI {
 
   @GET("http://api.openweathermap.org/data/2.5/weather")
   Call<WeatherData> getWeatherFromApi(@Query("q") String cityName, @Query("APPID") String appId);
+
+  @GET("http://api.openweathermap.org/data/2.5/weather")
+  Observable<WeatherData> getObservableWeatherFromApi(@Query("q") String cityName, @Query("APPID") String appId);
+
 
   @GET("items/hot_keywords")
   Call<TestKeyData> getKeyWords();

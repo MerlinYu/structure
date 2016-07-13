@@ -18,4 +18,6 @@
         }
     </string>
 
+    <string name="introduction">RxAndroid Retrofit 的使用</string>
+
 </resources>

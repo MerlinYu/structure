@@ -50,6 +50,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".main.rx.RxActivity"/>
+
 
 
         <!--umeng start-->

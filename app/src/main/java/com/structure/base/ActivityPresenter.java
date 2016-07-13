@@ -20,9 +20,14 @@ public class ActivityPresenter<V extends ActivityDisplay, M extends BaseModule>
   private LifecycleEvent life;
 
   public ActivityPresenter(V mDisplay, M mModule) {
+    if (null == mDisplay) {
+      throw new IllegalArgumentException("null display");
+    }
     this.mDisplay = mDisplay;
     this.mModule = mModule;
   }
+
+
 
   @Override
   public V getDisplay() {

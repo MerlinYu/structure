@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textIsSelectable="true"
+            android:text="@string/introduction"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:background="@drawable/circle_corner"
+                />
+
+            <com.structure.widget.RoundCornerImageView
+                android:id="@+id/image_circle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                />
+
+            <com.structure.widget.TouchLayout
+                android:id="@+id/touch_layout"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.structure.widget.TouchView
+                    android:id="@+id/touch_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/ic_launcher"/>
+
+                <TextView
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:text="事件分发"
+                    />
+
+
+            </com.structure.widget.TouchLayout>
+        </LinearLayout>
+
+
+        <org.apmem.tools.layouts.FlowLayout
+            android:id="@+id/flow_btn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        </org.apmem.tools.layouts.FlowLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

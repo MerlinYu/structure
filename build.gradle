@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.2'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -49,6 +50,8 @@ ext.libraries = [
         Gson              : "com.google.code.gson:gson:2.3",
         RetrofitConverter : "com.squareup.retrofit2:converter-gson:2.0.2",
         LoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:3.2.0",
+        RxJavaRetrofitAdapter :'com.squareup.retrofit2:adapter-rxjava:2.0.2',
+
 
         /** structure*/
         RxAndroid         : "io.reactivex:rxandroid:1.0.1",
@@ -76,7 +79,7 @@ ext.libraries = [
         StorIoAnnotationProcessor: "com.pushtorefresh.storio:sqlite-annotations-processor:1.9.1",
 
         /**log*/
-        Timber : "com.jakewharton.timber:timber:4.1.2"
+        Timber : "com.jakewharton.timber:timber:4.1.2",
 
 
 
