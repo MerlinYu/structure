@@ -10,9 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
+import rx.subscriptions.Subscriptions;
 
 /**
  * Created by yuchao on 7/13/16.
@@ -146,7 +149,7 @@ public class RxActivityPresenter extends ActivityPresenter<RxActivity, ActivityM
   public void runThreadTime() {
     Observable<WeatherData> weather = mModule.asRetrofit()
         .getObservableWeatherFromApi("shenzhen", "ea574594b9d36ab688642d5fbeab847e");
-    weather
+    Subscription subscription = weather
         // 观察者运行线程，一般进行异步耗时操作
         .subscribeOn(Schedulers.io())
         // 订阅者运行线程，如果需要刷新UI，需要指定
@@ -154,6 +157,18 @@ public class RxActivityPresenter extends ActivityPresenter<RxActivity, ActivityM
         .subscribe(weatherData -> {
           mDisplay.weatherToast(weatherData);
         });
+
+    //TODO:销毁时取消
+    if (null != subscription && subscription.isUnsubscribed()) {
+      subscription.unsubscribe();
+    }
+  }
+
+
+  public void mergeObservable() {
+    // Observable 其中某个observable发生错误并不影响合并
+    Observable.mergeDelayError(Observable.just("merlin "), Observable.just("world "), Observable.just("friends"))
+        .subscribe(s -> System.out.println(" hello "+s));
 
   }
 

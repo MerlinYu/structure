@@ -1,6 +1,7 @@
 package com.structure.main;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -59,6 +60,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   TouchView mTouchView;
 //  Activity
 
+  public static Intent createIntent(Context context) {
+    Intent intent = new Intent(context, MainActivity.class);
+    return intent;
+  }
+
+
+
   //TODO:数据库，RXAndroid 
 
   @Override
@@ -66,8 +74,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     super.onCreate(savedInstanceState);
     LogV("on create "+(savedInstanceState==null));
     setTouchListener();
-
   }
+
+
 
   @Override
   public MainPresenter createPresenter() {

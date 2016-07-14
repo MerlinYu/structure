@@ -1,6 +1,8 @@
 package com.structure.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +14,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by yuchao on 7/1/16.
@@ -114,6 +118,39 @@ public class FileUtils {
   public static boolean isExternalStorageAvailable(){
     return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
   }
+
+  public static Bitmap downloadImage(String url) {
+    if(TextUtils.isEmpty(url)) {
+      return null;
+    }
+    HttpURLConnection connection = null;
+    Bitmap bitmap = null;
+    try {
+      URL urlObj = new URL(url);
+      connection = (HttpURLConnection) urlObj.openConnection();
+      connection.setConnectTimeout(10*1000);
+      connection.setReadTimeout(10*1000);
+      int responseCode = connection.getResponseCode();
+      if (responseCode >= 300) {
+        connection.disconnect();
+        throw new IOException("load image error");
+      }
+      InputStream inputStream = connection.getInputStream();
+      String path = FileUtils.writeFile(inputStream,true);
+      System.out.println("load intent bitmap path: " + path);
+      bitmap = BitmapFactory.decodeFile(path);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    finally {
+      if (null != connection) {
+        connection.disconnect();
+      }
+    }
+    return bitmap;
+  }
+
+
 
   public static String writeFile(InputStream stream,boolean isCloseStream) {
     if (null == stream){
