@@ -16,7 +16,7 @@ import com.structure.base.fragment.BaseFragmentPresenter;
 public class HomeFragment extends BaseFragment<BaseFragmentPresenter> {
   @Override
   protected View createContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_layout,container, false);
+    return inflater.inflate(R.layout.fragment_home_layout,container, false);
 
   }
 

@@ -18,6 +18,46 @@
         }
     </string>
 
+    <string name="style_design">material design</string>
+    <string name="view_anim">控件和动画</string>
     <string name="introduction">RxAndroid Retrofit 的使用</string>
+    <string name="toogle_btn">ToogleButton</string>
+    <string name="editview">EditView</string>
+    <string name="seekbar">SeekBar</string>
+    <string name="radio_btn">RadioButton</string>
+    <string name="radio_man">Gentle man</string>
+    <string name="radio_woman">Lady </string>
+    <string name="checkbox">CheckBox</string>
+
+    <string name="checkbox_content">This is your choose,believe it and do it!</string>
+    <string name="text_on">open</string>
+    <string name="text_off">off</string>
+
+    <string name="spinner">spinner</string>
+
+    <string-array name="job">
+        <item>Job</item>
+        <item>Software</item>
+        <item>Account</item>
+        <item>Service</item>
+        <item>Builder</item>
+    </string-array>
+
+    <string name="translate_view">一般动画</string>
+    <string name="move_anim">移动</string>
+    <string name="alpha_anim">透明</string>
+    <string name="rotation_anim">旋转</string>
+
+    <string name="move_anim_start">我要开始游了啊...</string>
+    <string name="move_anim_end">哎呀，游不动了...</string>
+
+    <string name="rota_anim_start">我要旋转了啊...</string>
+    <string name="rota_anim_end">我已经旋转完了...</string>
+
+    <string name="alpha_anim_start">我要消失了...</string>
+    <string name="alpha_anim_end">你放心，我再也不消失了...</string>
+
+
+    <string name="property_view">属性动画</string>
 
 </resources>

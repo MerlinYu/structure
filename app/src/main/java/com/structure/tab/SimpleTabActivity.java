@@ -76,7 +76,7 @@ public class SimpleTabActivity extends BaseActivity<SimplePresenter> {
 
   private static class FragmentTabAdapter extends FragmentStatePagerAdapter {
 
-    private static final String[] tabTitle = {"首页", "讨论区","其他"};
+    private static final String[] tabTitle = {"控件", "动画","其他"};
 
     public FragmentTabAdapter(FragmentManager fm) {
       super(fm);

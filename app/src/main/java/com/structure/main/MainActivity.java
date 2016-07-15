@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     final Button tabBtn = new Button(this);
     tabBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
-    tabBtn.setText("tab activity");
+    tabBtn.setText(R.string.view_anim);
     tabBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -117,7 +117,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     Button personBtn = new Button(this);
     personBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
-    personBtn.setText("person zone");
+    personBtn.setText(R.string.style_design);
     personBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {

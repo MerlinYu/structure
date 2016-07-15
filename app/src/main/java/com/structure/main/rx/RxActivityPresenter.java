@@ -19,7 +19,7 @@ import rx.subscriptions.Subscriptions;
 
 /**
  * Created by yuchao on 7/13/16.
- * 
+ *
  */
 public class RxActivityPresenter extends ActivityPresenter<RxActivity, ActivityModule<TestAPI>> {
 
@@ -40,7 +40,8 @@ public class RxActivityPresenter extends ActivityPresenter<RxActivity, ActivityM
           @Override
           public void call(Subscriber<? super String> subscriber) {
             System.out.println("observable  send :hello world ");
-            subscriber.onNext("hello world");
+            String hello = "hello world ";
+            subscriber.onNext(hello);
             subscriber.onCompleted();
           }
         }
@@ -78,6 +79,16 @@ public class RxActivityPresenter extends ActivityPresenter<RxActivity, ActivityM
     observable.just("hello world").subscribe(s -> {
       System.out.println("subscriber " + s);
     });
+    observable = Observable.create(new Observable.OnSubscribe<String>() {
+      @Override
+      public void call(Subscriber<? super String> subscriber) {
+
+        System.out.println("hello");
+        subscriber.onNext("hello");
+      }
+    });
+//    observable.subscribe();
+
   }
 
   public void mapDealObservableResult() {
@@ -129,6 +140,8 @@ public class RxActivityPresenter extends ActivityPresenter<RxActivity, ActivityM
         // 额外操作
         .doOnNext(s -> System.out.println("do something for " + s))
         .subscribe(string -> System.out.println(string));
+
+
   }
 
   // 异常和完成结果通知
@@ -162,24 +175,10 @@ public class RxActivityPresenter extends ActivityPresenter<RxActivity, ActivityM
     }
   }
 
-
   public void mergeObservable() {
     // Observable 其中某个observable发生错误并不影响合并
     Observable.mergeDelayError(Observable.just("merlin "), Observable.just("world "), Observable.just("friends"))
         .subscribe(s -> System.out.println(" hello "+s));
 
   }
-
-//  public
-
-
-
-
-
-
-
-
-
-
-
 }
