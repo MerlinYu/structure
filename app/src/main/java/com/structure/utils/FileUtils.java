@@ -147,6 +147,7 @@ public class FileUtils {
         connection.disconnect();
       }
     }
+    System.out.println("null == bitmap " + (null == bitmap));
     return bitmap;
   }
 

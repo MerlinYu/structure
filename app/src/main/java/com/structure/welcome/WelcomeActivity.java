@@ -48,7 +48,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivityPresenter> {
 
   public void startMainActivity() {
     startActivity(MainActivity.createIntent(this));
-    finish();
   }
 
 }

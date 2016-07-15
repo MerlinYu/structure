@@ -19,6 +19,7 @@ import rx.subscriptions.Subscriptions;
 
 /**
  * Created by yuchao on 7/13/16.
+ * 
  */
 public class RxActivityPresenter extends ActivityPresenter<RxActivity, ActivityModule<TestAPI>> {
 
@@ -74,12 +75,9 @@ public class RxActivityPresenter extends ActivityPresenter<RxActivity, ActivityM
     }
     observable.subscribe(subscriber);
     // 其他简捷写法
-//    observable.just("hello world").subscribe(new Action1<String>() {
-//      @Override
-//      public void call(String s) {
-//        System.out.println("subscriber " + s);
-//      }
-//    });
+    observable.just("hello world").subscribe(s -> {
+      System.out.println("subscriber " + s);
+    });
   }
 
   public void mapDealObservableResult() {
@@ -171,6 +169,8 @@ public class RxActivityPresenter extends ActivityPresenter<RxActivity, ActivityM
         .subscribe(s -> System.out.println(" hello "+s));
 
   }
+
+//  public
 
 
 

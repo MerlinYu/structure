@@ -2,6 +2,7 @@ package com.structure.welcome;
 
 import android.graphics.Bitmap;
 
+import com.structure.R;
 import com.structure.RetrofitApiService;
 import com.structure.base.ActivityModule;
 import com.structure.base.ActivityPresenter;
@@ -13,7 +14,9 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -23,40 +26,45 @@ import rx.schedulers.Schedulers;
 public class WelcomeActivityPresenter extends ActivityPresenter<WelcomeActivity, ActivityModule<WelcomeApi>>{
 
   private static final String TAG = "WelcomeActivityPresenter";
+  private Subscription sub;
   public WelcomeActivityPresenter(WelcomeActivity mDisplay) {
     super(mDisplay, RetrofitApiService.create(WelcomeApi.class, TAG));
   }
 
 
   public void loadWelcome() {
-    // 2s 定时
-  /*  Observable.timer(2, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-        .map(l -> {
-          mDisplay.startActivity(MainActivity.createIntent(mDisplay));
-          mDisplay.finish();
-          return null;
-        })
-        .subscribe();
-  */
     // Observable 其中某个observable发生错误并不影响合并
-    Observable.mergeDelayError(loadADFromLocal().subscribeOn(Schedulers.io()),
+    sub = Observable.mergeDelayError(loadADFromLocal().subscribeOn(Schedulers.io()),
         loadADFromIntent().subscribeOn(Schedulers.newThread()))
-        .filter(bitmap -> null != bitmap)
         .sample(2, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
         .flatMap(bitmap -> {
-          mDisplay.setWelcomeLayout(bitmap);
-          return Observable.timer(3,TimeUnit.SECONDS);
+          if (null == bitmap) {
+            // 在Null情况下如果 直接返回Observable.empty会造成completed无法执行
+            return Observable.timer(0,TimeUnit.SECONDS);
+          } else {
+            mDisplay.setWelcomeLayout(bitmap);
+            return Observable.timer(2, TimeUnit.SECONDS);
+          }
         })
         .subscribe(
-            timer -> { mDisplay.startMainActivity();},
-            error -> { mDisplay.startMainActivity();},
-            () ->    { mDisplay.startMainActivity();}
+            timer -> {
+              System.out.println("========on next");
+              mDisplay.startMainActivity();
+              mDisplay.finish();
+            },
+            error -> {
+              System.out.println("=========on error");
+              mDisplay.startMainActivity();
+              mDisplay.finish();
+            },
+            () ->{
+              System.out.println("=========on finish");
+            }
         );
   }
 
  // 从本地加载广告图片
   private Observable<Bitmap>  loadADFromLocal() {
-
     Observable<Bitmap> observable = Observable.create(new Observable.OnSubscribe<Bitmap>() {
       @Override
       public void call(Subscriber<? super Bitmap> subscriber) {
@@ -78,5 +86,14 @@ public class WelcomeActivityPresenter extends ActivityPresenter<WelcomeActivity,
       }
     });
     return observable;
+  }
+
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    if (null != sub) {
+      sub.unsubscribe();
+    }
   }
 }
