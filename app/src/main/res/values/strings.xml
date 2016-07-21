@@ -47,6 +47,10 @@
     <string name="move_anim">移动</string>
     <string name="alpha_anim">透明</string>
     <string name="rotation_anim">旋转</string>
+    <string name="rotation_anim_x">x轴旋转</string>
+    <string name="rotation_anim_y">y轴旋转</string>
+    <string name="translate_rota">平移旋转</string>
+    <string name="series_anim">连续动画</string>
 
     <string name="move_anim_start">我要开始游了啊...</string>
     <string name="move_anim_end">哎呀，游不动了...</string>

@@ -68,25 +68,28 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/property_btn1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/rotation_anim_x"/>
 
         <Button
+            android:id="@+id/property_btn2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/translate_rota"/>
 
         <Button
+            android:id="@+id/property_btn3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/series_anim"/>
 
         <Button
+            android:id="@+id/property_btn4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
     </LinearLayout>
-
-
-
 
 </LinearLayout>

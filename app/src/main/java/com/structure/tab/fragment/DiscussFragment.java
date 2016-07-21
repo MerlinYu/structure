@@ -1,5 +1,9 @@
 package com.structure.tab.fragment;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,6 +43,18 @@ public class DiscussFragment extends BaseFragment<BaseFragmentPresenter> {
   @InjectView(R.id.anim_text)
   TextView mAnimText;
 
+  @InjectView(R.id.property_btn1)
+  Button propertyBtn1;
+  @InjectView(R.id.property_btn2)
+  Button propertyBtn2;
+
+  @InjectView(R.id.property_btn3)
+  Button propertyBtn3;
+
+  @InjectView(R.id.property_btn4)
+  Button propertyBtn4;
+
+
   /*@InjectView(R.id.)
       Button
 */
@@ -63,6 +79,58 @@ public class DiscussFragment extends BaseFragment<BaseFragmentPresenter> {
 
   //属性动画
   public void propertyAnim() {
+    AnimationDrawable drawable = (AnimationDrawable)mAnimImage.getBackground();
+    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mAnimImage.getLayoutParams();
+    params.gravity = Gravity.CENTER;
+    mAnimImage.setLayoutParams(params);
+
+    propertyBtn1.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+//        drawable.start();
+        // x轴旋转
+       /* ObjectAnimator.ofFloat(mAnimImage,"rotationX", 0.0f,360.f)
+            .setDuration(1000)
+            .start();
+       */
+        ObjectAnimator.ofFloat(mAnimImage,"rotationY", 0.0f,180.f).setDuration(1000).start();
+
+       // ObjectAnimator.ofFloat(mAnimImage, "translationY", 0f,200f).setDuration(1000).start();
+       // ObjectAnimator.ofFloat(mAnimImage, "translationX", 0f,200f).setDuration(1000).start();
+        ObjectAnimator.ofFloat(mAnimImage, "rotation", 0,360f).setDuration(1000).start();
+
+      }
+    });
+
+    propertyBtn2.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        // 这种写法更节省动画资源
+        PropertyValuesHolder p1=PropertyValuesHolder.ofFloat("rotation", 0,360f);
+        PropertyValuesHolder p2=PropertyValuesHolder.ofFloat("translationX", 0f,200f);
+        PropertyValuesHolder p3=PropertyValuesHolder.ofFloat("translationY", 0f,200f);
+        ObjectAnimator.ofPropertyValuesHolder(mAnimImage, p1,p2,p3).setDuration(1000).start();
+
+      }
+    });
+
+    propertyBtn3.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        ObjectAnimator animator1=ObjectAnimator.ofFloat(mAnimImage, "rotation", 0,360f);
+        ObjectAnimator animator2=ObjectAnimator.ofFloat(mAnimImage, "translationX", 0,200f);
+        ObjectAnimator animator3=ObjectAnimator.ofFloat(mAnimImage, "translationY", 0,200f);
+
+        AnimatorSet set=new AnimatorSet();
+        //set.playTogether(animator1,animator2,animator3);
+//        set.playSequentially(animator2,animator3);
+        set.playSequentially(animator1,animator2,animator3);
+        set.setDuration(1000);
+        set.start();
+      }
+    });
+
+
 
   }
 
@@ -120,7 +188,6 @@ public class DiscussFragment extends BaseFragment<BaseFragmentPresenter> {
           public void onAnimationEnd(Animation animation) {
             drawable.stop();
             mAnimText.setText(R.string.alpha_anim_end);
-
           }
 
           @Override
@@ -168,8 +235,6 @@ public class DiscussFragment extends BaseFragment<BaseFragmentPresenter> {
         mAnimImage.setLayoutParams(params);
 //        ((LinearLayout.LayoutParams) mAnimImage.getLayoutParams()).gravity =
         mAnimImage.startAnimation(animation);
-
-
       }
     });
 
