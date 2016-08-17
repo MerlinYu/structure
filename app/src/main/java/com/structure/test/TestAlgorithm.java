@@ -1,16 +1,15 @@
 package com.structure.test;
 
-import android.support.annotation.NonNull;
+import com.structure.test.algorithm.SortAlgorithm;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Created by yuchao on 6/6/16.
  * It is a file for testing algorithm
+ * bubbleSort:冒泡算法
+ * selectedSort:选择排序
  */
 public class TestAlgorithm {
 
@@ -18,7 +17,12 @@ public class TestAlgorithm {
   public static void main(String[] args) {
 
     //intersect(aa,bb);
-    reverseVowels("hello, mast,you heb,yoiu, are ");
+//    reverseVowels("hello, mast,you heb,yoiu, are ");
+//    int rabbits = getRabits(6);
+//    System.out.println(" rabit " + rabbits);
+    SortAlgorithm sortAlgorithm =new SortAlgorithm();
+    sortAlgorithm.test();
+    
   }
 
 
@@ -82,7 +86,6 @@ public class TestAlgorithm {
     for (int j = 0 ; j < preCount; j++) {
       reversedArray[j] = charArray[vowelCharArray[preCount - j -1]];
       System.out.println(" re " +  reversedArray[j]);
-
     }
 
     for (int j = 0 ; j < preCount; j++) {
@@ -102,5 +105,30 @@ public class TestAlgorithm {
     }
     return false;
   }
+
+  // 兔子问题，菲波列一对兔子，小兔子3个月之后每月便可以生一对兔子，
+  // return 兔子对数
+  // 另一种简单的实现是用递归实现
+  public static  int getRabits(int months) {
+    int rabbitsDouble = 1;
+    if (months < 3) {
+      return rabbitsDouble;
+    }
+    int first = 1;
+    int second  = 1;
+    int rabit = 0;
+    for (int i = 0; i < months -2 ; i ++) {
+      rabit = first + second;
+      first = second;
+      second = rabit;
+    }
+    return rabit;
+  }
+
+
+
+
+
+
 
 }

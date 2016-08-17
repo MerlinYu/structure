@@ -2,10 +2,14 @@ package com.structure.main;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -38,6 +42,8 @@ import com.structure.widget.TouchLayout;
 import com.structure.widget.TouchView;
 import org.apmem.tools.layouts.FlowLayout;
 import java.io.File;
+import java.lang.ref.WeakReference;
+
 import butterknife.InjectView;
 
 
@@ -59,6 +65,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   @InjectView(R.id.touch_text_view)
   TouchView mTouchView;
 //  Activity
+  @InjectView(R.id.drawable_img)
+  ImageView mDrawableImage;
 
   public static Intent createIntent(Context context) {
     Intent intent = new Intent(context, MainActivity.class);
@@ -74,6 +82,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     super.onCreate(savedInstanceState);
     LogV("on create "+(savedInstanceState==null));
     setTouchListener();
+    test();
   }
 
 
@@ -259,6 +268,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
       }
     });
     mFlowBtnLayout.addView(rxBtn);
+    String filePath = "/storage/emulated/0/Tencent/MicroMsg/1456464085573_36c7bd88.jpg_resize.jpg";
+    File file = new File(filePath);
+    String fileUri = Uri.fromFile(new File(filePath)).toString();
+
+    Bitmap bitmap = scaleBitmap(filePath);
+    mDrawableImage.setImageBitmap(bitmap);
+
+
+
+//    Uri.parse(file.get)
+//    Toast.makeText(this,fileUri,Toast.LENGTH_SHORT).show();
+
+//    Picasso.with(this).load(R.mipmap.customer_icon).into(mDrawableImage);
 
 
   }
@@ -337,6 +359,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   protected void onResume() {
     super.onResume();
     LogV("on resume");
+    test();
   }
 
   @Override
@@ -396,6 +419,79 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   public void showWeather(WeatherData data) {
     Toast.makeText(this,"shen zhen weather \n" + data, Toast.LENGTH_LONG).show();
   }
+
+
+  public Bitmap scaleBitmap(String filePath) {
+    if (TextUtils.isEmpty(filePath)) {
+      return null;
+    }
+    BitmapFactory.Options options = new BitmapFactory.Options();
+    options.inJustDecodeBounds = true;
+    BitmapFactory.decodeFile(filePath,options);
+    // 长宽比
+    double scale =  ((double)options.outHeight/(double)options.outWidth);
+    int minHeight = 100;
+    int minWidth = 100;
+    int maxHeight = 450;
+    int maxWidth = 450;
+
+    int reqWidth = 0;
+    int reqHeight = 0;
+
+    LogV("scale = " + scale);
+    LogV("outWidth,outHeight " + options.outWidth + ", " + options.outHeight);
+
+    if (options.outWidth >= minWidth && options.outWidth <= maxWidth
+        && options.outHeight >= minHeight && options.outHeight <= maxHeight) {
+      options.inSampleSize = 1;
+    } else {
+      // 以最大高度为准
+      if (scale >= 1) {
+        reqHeight = maxHeight;
+        reqWidth = (int)(maxHeight / scale) ;
+      } else {
+        reqWidth = maxWidth;
+        reqHeight = (int)(maxHeight * scale) ;
+      }
+      LogV("reqHeight,reqWidth = " + reqHeight +"," + reqWidth);
+      options.inSampleSize = calculateSampleSize(options,reqWidth,reqHeight);
+    }
+    options.inScaled = true;
+    options.inJustDecodeBounds = false;
+    return BitmapFactory.decodeFile(filePath,options);
+  }
+
+  public int calculateSampleSize(BitmapFactory.Options options,int reqWidth,int reqHeight) {
+    final int height = options.outHeight;
+    final int width = options.outWidth;
+    int inSampleSize = 1;
+    if (height > reqHeight || width > reqWidth) {
+      final int halfHeight = height / 2;
+      final int halfWidth = width / 2;
+      // Calculate the largest inSampleSize value that is a power of 2 and
+      // keeps both
+      // height and width larger than the requested height and width.
+      while ((halfHeight / inSampleSize) > reqHeight
+          && (halfWidth / inSampleSize) > reqWidth) {
+        inSampleSize *= 2;
+      }
+    }
+    LogV("sample size " + inSampleSize);
+    return inSampleSize;
+  }
+
+  public void test() {
+    Object o = new Object();
+    // 默认的构造函数，会使用ReferenceQueue.NULL 作为queue
+    WeakReference<Object> wr = new WeakReference<Object>(o);
+    Log.v("===leaks===", " null ?" +(wr.get() == null));
+    o = null;
+    System.gc();
+    Log.v("===leaks===", " null ?" +(wr.get() == null));
+
+
+  }
+
 
 
 }

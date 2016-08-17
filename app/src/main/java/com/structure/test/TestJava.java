@@ -3,6 +3,8 @@ package com.structure.test;
 
 import android.widget.TextView;
 
+import com.squareup.leakcanary.ExcludedRefs;
+
 import java.lang.annotation.Documented;
 
 /**
@@ -53,8 +55,7 @@ public class TestJava {
     test.TestString(name);
     test.test();
     System.out.println("===string=== " + name + name.hashCode());
-
-
+    test.testFinally();
   }
 
 
@@ -63,8 +64,19 @@ public class TestJava {
 
   }
 
-  public void testD(){
-
+  public void testFinally(){
+    try{
+      String str = null;
+      int length = str.length();
+      return;
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("null exception");
+      return;
+    }
+    finally {
+      System.out.println("finally");
+    }
   }
 
 //  public void

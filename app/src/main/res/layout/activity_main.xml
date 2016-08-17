@@ -85,6 +85,11 @@
             >
         </org.apmem.tools.layouts.FlowLayout>
 
+        <ImageView
+            android:id="@+id/drawable_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
 
