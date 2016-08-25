@@ -19,7 +19,16 @@ public class TestJava {
   private static final int MIN = 1;
   private static int tempLength = 1024;
   private static int mixLength = 0;
+  static {
+    System.out.println(" TestJava ");
+  }
 
+/*
+
+  public TestJava() {
+    System.out.println("test java constructor");
+  }
+*/
 
 
   public void TestString(String string) {
@@ -40,22 +49,15 @@ public class TestJava {
   }
 
   public static void main(String args[]) {
-    int number = MAX * MIN;
-    int length = mixLength + tempLength;
-    int size = number * length;
-//    TextView
+    logicalOperator();
 
-
-    String log = "tag";
-
-    TestJava test = new TestJava();
-    System.out.println("===name=== " + NAME + NAME.hashCode());
-
-    String name = new String("test");
-    test.TestString(name);
-    test.test();
-    System.out.println("===string=== " + name + name.hashCode());
-    test.testFinally();
+//    TestJava test = new TestJava();
+//    System.out.println("===name=== " + NAME + NAME.hashCode());
+//    String name = new String("test");
+//    test.TestString(name);
+//    test.test();
+//    System.out.println("===string=== " + name + name.hashCode());
+//    test.testFinally();
   }
 
 
@@ -64,6 +66,7 @@ public class TestJava {
 
   }
 
+  // finally 执行在 return 之后
   public void testFinally(){
     try{
       String str = null;
@@ -77,6 +80,45 @@ public class TestJava {
     finally {
       System.out.println("finally");
     }
+  }
+
+  public static void logicalOperator() {
+    int number1 = 0x101; // 257;
+    int number2 = 0x110; // 272;
+//    | 位运算符-或 0|0为0其他的都为1；
+    System.out.println("number1,number2: 0x101, 0x110");
+    System.out.format(" | 运算符 result:%x\n" , (number1|number2));
+
+//    & 位运算符-并 1&1为1其他的都为0；
+    System.out.format(" & 运算符 result:%x\n" , (number1&number2));
+
+//    ^ 位运算符-异或 0|0 为0，1|1为0，其他为1；
+    System.out.format(" 异或运算符 result:%x\n" , (number1^number2));
+
+//    ~ 位运算符-反 ~0为1，~1为0；
+    System.out.format(" 反运算符 result:%x\n" , (~number1));
+
+
+    System.out.println("number1 十进制：" + number1);
+//    <<左移，>>右移，相当于给一个数*2，/2的效果；
+    System.out.format(" 左移运算符 result:%d\n" , (number1<<1));
+    System.out.format(" 右移运算符 result:%d\n" , (number1>>1));
+
+//    运算符优先级高低依次
+//    ！ == != && ||
+    int a ;
+    int b;
+
+//    if (a&&b)
+
+
+
+
+
+
+
+
+
   }
 
 //  public void

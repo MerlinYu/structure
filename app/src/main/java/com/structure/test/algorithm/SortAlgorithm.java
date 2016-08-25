@@ -7,7 +7,6 @@ package com.structure.test.algorithm;
  * selectedSort:选择排序
  * quickSort:快速排序
  * insertSort:插入排序
- * TODO:二叉树
  * 先了解基本算法，然后再算法进阶，研究一些
  * think:算法思路僵化，贫瘠。目前算法对于我来说太难了
  */
@@ -155,6 +154,5 @@ public class SortAlgorithm {
     }
     System.out.println("insert sort: " + intToString(ten));
   }
-
 
 }

@@ -68,7 +68,6 @@ public class RoundCornerImageView extends ImageView {
       //TODO:
       mBitmap = getBitmapFromDrawable(getDrawable());
       setBitmapShader();
-      Log.v("===draw====", "");
       canvas.drawRoundRect(mDrawableRect, mDrawableRadius, mDrawableRadius, mBitmapPaint);
     } catch (Exception e) {
       e.printStackTrace();
@@ -104,7 +103,7 @@ public class RoundCornerImageView extends ImageView {
       return ((BitmapDrawable) drawable).getBitmap();
     }
     try {
-      Bitmap bitmap = null;
+      Bitmap bitmap;
       if (drawable instanceof ColorDrawable) {
         bitmap = Bitmap.createBitmap(COLOR_DRAWABLE_DIMENSION, Parcelable.CONTENTS_FILE_DESCRIPTOR,BITMAP_CONFIG);
       } else {

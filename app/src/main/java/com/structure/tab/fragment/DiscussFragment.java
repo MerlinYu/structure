@@ -84,6 +84,8 @@ public class DiscussFragment extends BaseFragment<BaseFragmentPresenter> {
     params.gravity = Gravity.CENTER;
     mAnimImage.setLayoutParams(params);
 
+    mAnimImage.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
     propertyBtn1.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {

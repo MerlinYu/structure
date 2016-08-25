@@ -6,8 +6,6 @@ package com.structure.collection;
 public class DeviceInfo {
 
 
-
-
   /**
    * 相对于160dp的分辨倍数
    */

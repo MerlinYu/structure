@@ -6,11 +6,14 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +41,8 @@ import com.structure.test.database.TradeHistory;
 import com.structure.test.database.TradeHistoryTable;
 import com.structure.utils.FileUtils;
 import com.structure.utils.GenerateBitmapTask;
+import com.structure.utils.ImageUtils;
+import com.structure.widget.CustomerView;
 import com.structure.widget.LoadingDialog;
 import com.structure.widget.TouchLayout;
 import com.structure.widget.TouchView;
@@ -52,6 +58,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
 
   private final static String TAG = "===activity=== ";
 
+  @InjectView(R.id.main_content)
+  public RelativeLayout mMainContent;
   @InjectView(R.id.text)
   public TextView mTextView;
   @InjectView(R.id.image)
@@ -66,23 +74,27 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   TouchView mTouchView;
 //  Activity
   @InjectView(R.id.drawable_img)
-  ImageView mDrawableImage;
+  CustomerView mDrawableImage;
 
   public static Intent createIntent(Context context) {
     Intent intent = new Intent(context, MainActivity.class);
     return intent;
   }
 
-
-
-  //TODO:数据库，RXAndroid 
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     LogV("on create "+(savedInstanceState==null));
     setTouchListener();
-    test();
+    // 设置系统状态栏的状态 http://blog.csdn.net/stevenhu_223/article/details/12428591
+//    多种方式的隐藏or多种方式的显示
+//    mMainContent.setSystemUiVisibility(View.INVISIBLE);
+//    mMainContent.onScreenStateChanged(View.SCREEN_STATE_OFF);
+    // 硬件加速or 软件加速
+    int layerType = mMainContent.getLayerType();
+    LogV("layer type " + layerType);
+    mMainContent.setKeepScreenOn(true);
+    mMainContent.setSoundEffectsEnabled(true);
   }
 
 
@@ -104,48 +116,33 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   @Override
   public void onViewCreated() {
     initFlowBtnLayout();
+    initCustomerView();
   }
-
 
   private void initFlowBtnLayout() {
     mFlowBtnLayout.removeAllViews();
-
     final Button tabBtn = new Button(this);
     tabBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
     tabBtn.setText(R.string.view_anim);
-    tabBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        startActivity(SimpleTabActivity.buildIntent(MainActivity.this));
-      }
-    });
+    tabBtn.setOnClickListener(v -> startActivity(SimpleTabActivity.buildIntent(MainActivity.this)));
     mFlowBtnLayout.addView(tabBtn);
-
 
     Button personBtn = new Button(this);
     personBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
     personBtn.setText(R.string.style_design);
-    personBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        startActivity(PersonActivity.buildIntent(MainActivity.this, " merlin"));
-      }
-    });
+    personBtn.setOnClickListener(v -> startActivity(PersonActivity.buildIntent(MainActivity.this, " merlin")));
     mFlowBtnLayout.addView(personBtn);
 
     Button jniBtn = new Button(this);
     jniBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
     jniBtn.setText(" jni btn");
-    jniBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        MyJniClass jniClass = new MyJniClass();
-        jniClass.JniPrint();
-        Toast.makeText(MainActivity.this, jniClass.getJniDisplayName(), Toast.LENGTH_SHORT).show();
-      }
+    jniBtn.setOnClickListener(v -> {
+      MyJniClass jniClass = new MyJniClass();
+      jniClass.JniPrint();
+      Toast.makeText(MainActivity.this, jniClass.getJniDisplayName(), Toast.LENGTH_SHORT).show();
     });
 
     mFlowBtnLayout.addView(jniBtn);
@@ -154,15 +151,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     jniBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
     fileBtn.setText("write file");
-    fileBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        String data = "Hello I am a system builder!";
-        FileUtils.writeCacheFile(MainActivity.this,FileUtils.FILE_CACHE, data.getBytes());
-        File file = new File(FileUtils.getCacheDir(MainActivity.this), FileUtils.FILE_CACHE);
-        FileUtils.readFileByte(file);
-        Toast.makeText(MainActivity.this, file.getAbsolutePath(), Toast.LENGTH_LONG).show();
-      }
+    fileBtn.setOnClickListener(v -> {
+      String data = "Hello I am a system builder!";
+      FileUtils.writeCacheFile(MainActivity.this,FileUtils.FILE_CACHE, data.getBytes());
+      File file = new File(FileUtils.getCacheDir(MainActivity.this), FileUtils.FILE_CACHE);
+      FileUtils.readFileByte(file);
+      Toast.makeText(MainActivity.this, file.getAbsolutePath(), Toast.LENGTH_LONG).show();
     });
     mFlowBtnLayout.addView(fileBtn);
 
@@ -170,17 +164,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     circleBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
     circleBtn.setText("picasso + 自定义圆角图片");
-    circleBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        String filePath = "http://pic74.nipic.com/file/20150728/18138004_201107753000_2.jpg";
-        Picasso.with(MainActivity.this)
-            .load(filePath)
-            .resize(300,300)
-            .centerCrop()
-            .placeholder(R.mipmap.image_loading)
-            .into(mCircleImage);
-      }
+    circleBtn.setOnClickListener(v -> {
+      String filePath = "http://pic74.nipic.com/file/20150728/18138004_201107753000_2.jpg";
+      Picasso.with(MainActivity.this)
+          .load(filePath)
+          .resize(300,300)
+          .centerCrop()
+          .placeholder(R.mipmap.image_loading)
+          .into(mCircleImage);
     });
     mFlowBtnLayout.addView(circleBtn);
 
@@ -189,57 +180,48 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     canvasBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
     canvasBtn.setText("canvas生成名片");
-    canvasBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        String describe = MainActivity.this.getResources().getString(R.string.life_describe);
-        GenerateBitmapTask task = new GenerateBitmapTask(MainActivity.this);
-        UserCard userCard = new UserCard("Merlin",
-            24,
-            "http://www.sougou.com/img/dog/0101.jpg",
-            "185890537",
-            describe,
-            "yuchao.lucky@gmail.com",
-            null);
-        task.execute(userCard);
-        }
-    });
+    canvasBtn.setOnClickListener(v -> {
+      String describe = MainActivity.this.getResources().getString(R.string.life_describe);
+      GenerateBitmapTask task = new GenerateBitmapTask(MainActivity.this);
+      UserCard userCard = new UserCard("Merlin",
+          24,
+          "http://www.sougou.com/img/dog/0101.jpg",
+          "185890537",
+          describe,
+          "yuchao.lucky@gmail.com",
+          null);
+      task.execute(userCard);
+      });
     mFlowBtnLayout.addView(canvasBtn);
 
     Button animBtn = new Button(this);
     animBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
     animBtn.setText("loading 动画");
-    animBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        LoadingDialog dialog = LoadingDialog.getIntent(MainActivity.this);
-        dialog.show();
-       }
-    });
+    animBtn.setOnClickListener(v -> {
+      LoadingDialog dialog = LoadingDialog.getIntent(MainActivity.this);
+      dialog.show();
+     });
     mFlowBtnLayout.addView(animBtn);
 
     final Button databaseBtn = new Button(this);
     databaseBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
     databaseBtn.setText("数据库读写");
-    databaseBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        DbManager dbManager = DbManager.getInstance();
-        TradeHistory trade = new TradeHistory("2014","2015","hello database!");
-        dbManager.Put(trade);
-        TradeHistory tradeHistory = dbManager.Get(TradeHistory.class, TradeHistoryTable.queryByName("2014"));
-        Toast.makeText(StructureApplication.sApplication, "write and read  " + tradeHistory.toString(),Toast.LENGTH_LONG).show();
-      //  dbManager.Delete(trade);
-        dbManager.Delete(DeleteQuery.builder().table(TradeHistoryTable.TABLE).build());
-        tradeHistory = dbManager.Get(TradeHistory.class, TradeHistoryTable.queryByName("2014"));
-        String deleteResult = "删除成功";
-        if (null != tradeHistory) {
-          deleteResult = "删除失败";
-        }
-        Toast.makeText(StructureApplication.sApplication, "delete database " + deleteResult,Toast.LENGTH_LONG).show();
+    databaseBtn.setOnClickListener(v -> {
+      DbManager dbManager = DbManager.getInstance();
+      TradeHistory trade = new TradeHistory("2014","2015","hello database!");
+      dbManager.Put(trade);
+      TradeHistory tradeHistory = dbManager.Get(TradeHistory.class, TradeHistoryTable.queryByName("2014"));
+      Toast.makeText(StructureApplication.sApplication, "write and read  " + tradeHistory.toString(),Toast.LENGTH_LONG).show();
+    //  dbManager.Delete(trade);
+      dbManager.Delete(DeleteQuery.builder().table(TradeHistoryTable.TABLE).build());
+      tradeHistory = dbManager.Get(TradeHistory.class, TradeHistoryTable.queryByName("2014"));
+      String deleteResult = "删除成功";
+      if (null != tradeHistory) {
+        deleteResult = "删除失败";
       }
+      Toast.makeText(StructureApplication.sApplication, "delete database " + deleteResult,Toast.LENGTH_LONG).show();
     });
     mFlowBtnLayout.addView(databaseBtn);
 
@@ -247,42 +229,49 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     retrofitBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
     retrofitBtn.setText("retrofit 2.0 网络请求");
-    retrofitBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        mPresenter.getShenZhenWeather();
-      }
-    });
+    retrofitBtn.setOnClickListener(v -> mPresenter.getShenZhenWeather());
     mFlowBtnLayout.addView(retrofitBtn);
 
     Button rxBtn = new Button(this);
     rxBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
     rxBtn.setText("RXJAVA ");
-    rxBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-//        mPresenter.getShenZhenWeather();
-        Intent intent = new Intent(MainActivity.this, RxActivity.class);
-        startActivity(intent);
-      }
+    rxBtn.setOnClickListener(v -> {
+      Intent intent = new Intent(MainActivity.this, RxActivity.class);
+      startActivity(intent);
     });
     mFlowBtnLayout.addView(rxBtn);
+  }
+
+  public void initCustomerView() {
+
     String filePath = "/storage/emulated/0/Tencent/MicroMsg/1456464085573_36c7bd88.jpg_resize.jpg";
-    File file = new File(filePath);
-    String fileUri = Uri.fromFile(new File(filePath)).toString();
+    Bitmap bitmap = ImageUtils.scaleBitmap(filePath);
 
-    Bitmap bitmap = scaleBitmap(filePath);
     mDrawableImage.setImageBitmap(bitmap);
+    // 旋转角度
+//    mDrawableImage.setRotation(120.0f);
+//    mDrawableImage.setPivotX(10.0f);
+//    mDrawableImage.setPivotY(10.0f);
+//    mDrawableImage.setAlpha(0.5f);
+//    mDrawableImage.invalidate();
+//Bitmap bitmap1 = mDrawableImage.getDrawingCache();
+//    String str = mDrawableImage.getDisplay().getName();
+//    String str1 = this.getWindow().getDecorView().getDisplay().getName();
+//    LogV("display name " + str1 + ", " );
+//    mDrawableImage.setTranAl
+//    mDrawableImage.setCameraDistance(180.0f);
 
-
-
-//    Uri.parse(file.get)
-//    Toast.makeText(this,fileUri,Toast.LENGTH_SHORT).show();
-
-//    Picasso.with(this).load(R.mipmap.customer_icon).into(mDrawableImage);
-
-
+    Display display =  getWindowManager().getDefaultDisplay();
+    if (null != display) {
+      int state = display.getState();
+      int flag = display.getFlags();
+      Rect rect = new Rect();
+      display.getRectSize(rect);
+      Point point = new Point();
+      display.getSize(point);
+      LogV("state,flag " + state + " , " + flag + " rect " + rect.toString() + " point " + point.toString());
+    }
   }
 
 
@@ -352,15 +341,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   protected void onPause() {
     super.onPause();
     LogV("on pause");
-
   }
 
   @Override
   protected void onResume() {
     super.onResume();
     LogV("on resume");
-    test();
+    testGc();
   }
+
 
   @Override
   protected void onDestroy() {
@@ -400,12 +389,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
 
 
   private void setTouchListener() {
-    mTouchLayout.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        LogV("click component name = "+v.getClass().getName());
-      }
-    });
+    mTouchLayout.setOnClickListener(v -> LogV("click component name = "+v.getClass().getName()));
 
     mTouchView.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -421,66 +405,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   }
 
 
-  public Bitmap scaleBitmap(String filePath) {
-    if (TextUtils.isEmpty(filePath)) {
-      return null;
-    }
-    BitmapFactory.Options options = new BitmapFactory.Options();
-    options.inJustDecodeBounds = true;
-    BitmapFactory.decodeFile(filePath,options);
-    // 长宽比
-    double scale =  ((double)options.outHeight/(double)options.outWidth);
-    int minHeight = 100;
-    int minWidth = 100;
-    int maxHeight = 450;
-    int maxWidth = 450;
 
-    int reqWidth = 0;
-    int reqHeight = 0;
-
-    LogV("scale = " + scale);
-    LogV("outWidth,outHeight " + options.outWidth + ", " + options.outHeight);
-
-    if (options.outWidth >= minWidth && options.outWidth <= maxWidth
-        && options.outHeight >= minHeight && options.outHeight <= maxHeight) {
-      options.inSampleSize = 1;
-    } else {
-      // 以最大高度为准
-      if (scale >= 1) {
-        reqHeight = maxHeight;
-        reqWidth = (int)(maxHeight / scale) ;
-      } else {
-        reqWidth = maxWidth;
-        reqHeight = (int)(maxHeight * scale) ;
-      }
-      LogV("reqHeight,reqWidth = " + reqHeight +"," + reqWidth);
-      options.inSampleSize = calculateSampleSize(options,reqWidth,reqHeight);
-    }
-    options.inScaled = true;
-    options.inJustDecodeBounds = false;
-    return BitmapFactory.decodeFile(filePath,options);
-  }
-
-  public int calculateSampleSize(BitmapFactory.Options options,int reqWidth,int reqHeight) {
-    final int height = options.outHeight;
-    final int width = options.outWidth;
-    int inSampleSize = 1;
-    if (height > reqHeight || width > reqWidth) {
-      final int halfHeight = height / 2;
-      final int halfWidth = width / 2;
-      // Calculate the largest inSampleSize value that is a power of 2 and
-      // keeps both
-      // height and width larger than the requested height and width.
-      while ((halfHeight / inSampleSize) > reqHeight
-          && (halfWidth / inSampleSize) > reqWidth) {
-        inSampleSize *= 2;
-      }
-    }
-    LogV("sample size " + inSampleSize);
-    return inSampleSize;
-  }
-
-  public void test() {
+  public void testGc() {
     Object o = new Object();
     // 默认的构造函数，会使用ReferenceQueue.NULL 作为queue
     WeakReference<Object> wr = new WeakReference<Object>(o);
@@ -488,10 +414,5 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     o = null;
     System.gc();
     Log.v("===leaks===", " null ?" +(wr.get() == null));
-
-
   }
-
-
-
 }

@@ -8,8 +8,6 @@ import java.util.Iterator;
 /**
  * Created by yuchao on 6/6/16.
  * It is a file for testing algorithm
- * bubbleSort:冒泡算法
- * selectedSort:选择排序
  */
 public class TestAlgorithm {
 
@@ -21,7 +19,20 @@ public class TestAlgorithm {
 //    int rabbits = getRabits(6);
 //    System.out.println(" rabit " + rabbits);
     SortAlgorithm sortAlgorithm =new SortAlgorithm();
-    sortAlgorithm.test();
+  //  sortAlgorithm.test();
+
+    try {
+      Class cc = Class.forName("com.structure.test.TestJava");
+      Class<?> c2 = TestJava.class;//比第一种方法好<?>和.class
+      //  constructor
+      Object object = cc.newInstance();
+      TestJava java = new TestJava();
+
+    }catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     
   }
 
@@ -124,6 +135,8 @@ public class TestAlgorithm {
     }
     return rabit;
   }
+
+
 
 
 

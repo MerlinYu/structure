@@ -5,4 +5,9 @@
         <attr name="round_corner_radius" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="CustomerView">
+        <attr name="ratio" format="float"/>
+
+    </declare-styleable>
+
 </resources>

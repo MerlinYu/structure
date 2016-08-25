@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/main_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +8,8 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:paddingTop="@dimen/activity_vertical_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <LinearLayout
@@ -48,6 +50,8 @@
                 android:layout_marginLeft="5dp"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
+                app:round_corner_radius="16sp"
+
                 />
 
             <com.structure.widget.TouchLayout
@@ -85,10 +89,13 @@
             >
         </org.apmem.tools.layouts.FlowLayout>
 
-        <ImageView
+        <com.structure.widget.CustomerView
             android:id="@+id/drawable_img"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            app:ratio="1"
+            />
 
     </LinearLayout>
 

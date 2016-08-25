@@ -16,7 +16,7 @@ public class ImageUtils {
 
 
 
-  public Bitmap scaleBitmap(String filePath) {
+  public static Bitmap scaleBitmap(String filePath) {
     if (TextUtils.isEmpty(filePath)) {
       return null;
     }
@@ -57,7 +57,7 @@ public class ImageUtils {
     return BitmapFactory.decodeFile(filePath,options);
   }
 
-  public int calculateSampleSize(BitmapFactory.Options options,int reqWidth,int reqHeight) {
+  public static int calculateSampleSize(BitmapFactory.Options options,int reqWidth,int reqHeight) {
     final int height = options.outHeight;
     final int width = options.outWidth;
     int inSampleSize = 1;
@@ -73,7 +73,7 @@ public class ImageUtils {
     return inSampleSize;
   }
 
-  private Bitmap degreeBitmap(String filePath,Bitmap bitmap) {
+  private static  Bitmap degreeBitmap(String filePath,Bitmap bitmap) {
     ExifInterface exif = null;
     try {
       exif = new ExifInterface(filePath);
@@ -111,7 +111,7 @@ public class ImageUtils {
 
 
 
-  private void LogV(String log) {
+  private static void LogV(String log) {
     Log.v("===scale=== ", log);
   }
 
