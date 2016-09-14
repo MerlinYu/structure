@@ -3,11 +3,15 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'com.android.tools.build:gradle:2.1.3'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -17,6 +21,8 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
+
     }
 }
 
@@ -34,7 +40,7 @@ ext {
 
 def support_version = '23.2.1'
 
-ext.libraries = [
+final def  map = ext.libraries = [
         AppCompat         : "com.android.support:appcompat-v7:23.1.1",
         /** UI design*/
         SupportDesign     : "com.android.support:design:$support_version",

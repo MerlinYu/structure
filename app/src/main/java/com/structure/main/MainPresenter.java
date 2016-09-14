@@ -1,6 +1,7 @@
 package com.structure.main;
 
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.structure.RetrofitApiService;
@@ -125,6 +126,10 @@ public class MainPresenter extends ActivityPresenter<MainActivity, ActivityModul
     if (dialog.isShowing()) {
       dialog.dismiss();
     }
+  }
+
+  public void startActivity(Intent intent) {
+    mDisplay.startActivity(intent);
   }
 
 

@@ -50,6 +50,8 @@ public class TestJava {
 
   public static void main(String args[]) {
     logicalOperator();
+    JavaCollection.test();
+    CloneShape.test();
 
 //    TestJava test = new TestJava();
 //    System.out.println("===name=== " + NAME + NAME.hashCode());
@@ -121,5 +123,4 @@ public class TestJava {
 
   }
 
-//  public void
 }

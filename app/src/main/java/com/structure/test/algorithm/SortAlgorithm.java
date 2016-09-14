@@ -125,7 +125,7 @@ public class SortAlgorithm {
         number[high--] = number[low];
       }
     }
-    number[low] =temp;
+    number[low] = temp;
     return low;
   }
 

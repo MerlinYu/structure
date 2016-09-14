@@ -46,6 +46,8 @@ import com.structure.widget.CustomerView;
 import com.structure.widget.LoadingDialog;
 import com.structure.widget.TouchLayout;
 import com.structure.widget.TouchView;
+import com.structure.widget.view.ViewActivity;
+
 import org.apmem.tools.layouts.FlowLayout;
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -72,9 +74,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   TouchLayout mTouchLayout;
   @InjectView(R.id.touch_text_view)
   TouchView mTouchView;
-//  Activity
-  @InjectView(R.id.drawable_img)
-  CustomerView mDrawableImage;
 
   public static Intent createIntent(Context context) {
     Intent intent = new Intent(context, MainActivity.class);
@@ -116,7 +115,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   @Override
   public void onViewCreated() {
     initFlowBtnLayout();
-    initCustomerView();
+    showDisplay();
   }
 
   private void initFlowBtnLayout() {
@@ -159,6 +158,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
       Toast.makeText(MainActivity.this, file.getAbsolutePath(), Toast.LENGTH_LONG).show();
     });
     mFlowBtnLayout.addView(fileBtn);
+
+    Button viewBtn = new Button(this);
+    viewBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
+    viewBtn.setText("view");
+    viewBtn.setOnClickListener(v -> mPresenter.startActivity(ViewActivity.createIntent(MainActivity.this)));
+    mFlowBtnLayout.addView(viewBtn);
+
 
     Button circleBtn = new Button(this);
     circleBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -243,24 +250,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     mFlowBtnLayout.addView(rxBtn);
   }
 
-  public void initCustomerView() {
-
-    String filePath = "/storage/emulated/0/Tencent/MicroMsg/1456464085573_36c7bd88.jpg_resize.jpg";
-    Bitmap bitmap = ImageUtils.scaleBitmap(filePath);
-
-    mDrawableImage.setImageBitmap(bitmap);
-    // 旋转角度
-//    mDrawableImage.setRotation(120.0f);
-//    mDrawableImage.setPivotX(10.0f);
-//    mDrawableImage.setPivotY(10.0f);
-//    mDrawableImage.setAlpha(0.5f);
-//    mDrawableImage.invalidate();
-//Bitmap bitmap1 = mDrawableImage.getDrawingCache();
-//    String str = mDrawableImage.getDisplay().getName();
-//    String str1 = this.getWindow().getDecorView().getDisplay().getName();
-//    LogV("display name " + str1 + ", " );
-//    mDrawableImage.setTranAl
-//    mDrawableImage.setCameraDistance(180.0f);
+  public void showDisplay() {
 
     Display display =  getWindowManager().getDefaultDisplay();
     if (null != display) {
