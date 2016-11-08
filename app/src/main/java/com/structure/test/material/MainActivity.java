@@ -1,17 +1,13 @@
-package com.structure.main;
+package com.structure.test.material;
 
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -30,6 +26,8 @@ import com.squareup.picasso.Picasso;
 import com.structure.R;
 import com.structure.StructureApplication;
 import com.structure.base.BaseActivity;
+import com.structure.main.MainDisplay;
+import com.structure.main.MainPresenter;
 import com.structure.main.data.weather.WeatherData;
 import com.structure.main.rx.RxActivity;
 import com.structure.person.PersonActivity;
@@ -41,8 +39,6 @@ import com.structure.test.database.TradeHistory;
 import com.structure.test.database.TradeHistoryTable;
 import com.structure.utils.FileUtils;
 import com.structure.utils.GenerateBitmapTask;
-import com.structure.utils.ImageUtils;
-import com.structure.widget.CustomerView;
 import com.structure.widget.LoadingDialog;
 import com.structure.widget.TouchLayout;
 import com.structure.widget.TouchView;
@@ -248,6 +244,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
       startActivity(intent);
     });
     mFlowBtnLayout.addView(rxBtn);
+
+
+    Button coorinatorBtn = new Button(this);
+    coorinatorBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
+    coorinatorBtn.setText("coordinator ");
+    coorinatorBtn.setOnClickListener(v -> {
+      Intent intent = new Intent(MainActivity.this, CoodinatorActivity.class);
+      startActivity(intent);
+    });
+    mFlowBtnLayout.addView(coorinatorBtn);
+
+
   }
 
   public void showDisplay() {

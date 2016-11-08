@@ -86,16 +86,13 @@ public final class RetrofitApiService {
   }
 
   private static Interceptor getHeaderInterceptor() {
-    Interceptor interceptor = new Interceptor() {
-      @Override
-      public Response intercept(Chain chain) throws IOException {
-        Request.Builder builder = chain.request().newBuilder();
-        for (Map.Entry<String,String> entry : getHeaders().entrySet()) {
-          builder.addHeader(entry.getKey(),entry.getValue());
-        }
-        Request request = builder.build();
-        return chain.proceed(request);
+    Interceptor interceptor = chain -> {
+      Request.Builder builder = chain.request().newBuilder();
+      for (Map.Entry<String,String> entry : getHeaders().entrySet()) {
+        builder.addHeader(entry.getKey(),entry.getValue());
       }
+      Request request = builder.build();
+      return chain.proceed(request);
     };
 
     return interceptor;
@@ -121,7 +118,8 @@ public final class RetrofitApiService {
       }
       sHeaders.put(HeadersCollection.APP_VERSION, "android/" + info.versionName);
       sHeaders.put(HeadersCollection.APP_NAME, "android/" + info.packageName);
-      sHeaders.put("Cookie", "remember_token=558f647c20058915ffa8544f|7a679bc4a767620c597aedfcce835226273d16a2; session=f09841fd-350f-46ad-bd0b-bcc32111ead4");
+      sHeaders.put("Cookie", "remember_token=558f647c20058915ffa8544f|7a679bc4a767620c597aedfcce835226273d16a2; " +
+          "session=f09841fd-350f-46ad-bd0b-bcc32111ead4");
       //5d115b3a-d9c3-4110-83a0-70792037f76a
       sHeaders.put(HeadersCollection.MAC_ADDRESS, macAddr);
 

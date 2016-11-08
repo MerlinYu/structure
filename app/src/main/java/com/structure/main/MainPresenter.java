@@ -12,6 +12,7 @@ import com.structure.main.data.BaseResponse;
 import com.structure.main.data.KeyWordsData;
 import com.structure.main.data.weather.WeatherData;
 import com.structure.person.event.GenerateCardEvent;
+import com.structure.test.material.MainActivity;
 import com.structure.widget.LoadingDialog;
 
 import org.greenrobot.eventbus.EventBus;

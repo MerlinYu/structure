@@ -2,12 +2,9 @@ package com.structure.welcome;
 
 import android.graphics.Bitmap;
 
-import com.structure.R;
 import com.structure.RetrofitApiService;
 import com.structure.base.ActivityModule;
 import com.structure.base.ActivityPresenter;
-import com.structure.base.BaseModule;
-import com.structure.main.MainActivity;
 import com.structure.utils.FileUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -16,7 +13,6 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**

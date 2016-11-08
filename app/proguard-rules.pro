@@ -36,7 +36,7 @@
 -dontwarn rx.internal.util.**
 -dontwarn retrofit2.Platform$Java8
 -dontwarn okhttp3.internal.Platform
-
+-ignorewarnings
 #butterknife
 -dontwarn butterknife.internal.**
 -keep class **$$ViewInjector { *; }

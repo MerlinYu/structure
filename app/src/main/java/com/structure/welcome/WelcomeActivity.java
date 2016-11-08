@@ -1,25 +1,16 @@
 package com.structure.welcome;
 
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.Application;
-import android.app.Service;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Binder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.FrameLayout;
 
-import com.google.common.util.concurrent.ServiceManager;
 import com.structure.R;
 import com.structure.base.BaseActivity;
-import com.structure.main.MainActivity;
-
-import java.util.HashMap;
+import com.structure.test.material.MainActivity;
 
 import butterknife.InjectView;
-import rx.Observable;
 
 /**
  * Created by yuchao on 7/13/16.

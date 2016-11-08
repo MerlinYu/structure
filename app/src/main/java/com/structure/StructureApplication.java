@@ -5,14 +5,11 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 
 //import com.facebook.stetho.Stetho;
-import com.squareup.leakcanary.AndroidExcludedRefs;
-import com.squareup.leakcanary.ExcludedRefs;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.structure.collection.DeviceInfo;
 import com.structure.test.database.DbManager;
 
-import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -33,6 +30,8 @@ public class StructureApplication extends Application {
     initService();
     initDeviceInfo();
     initDatabase();
+    // 捕捉异常
+    CrashHandler.getInstance().init();
     // samung ClipboardUIManager 内存泄漏
     try {
       Class cls = Class.forName("android.sec.clipboard.ClipboardUIManager");

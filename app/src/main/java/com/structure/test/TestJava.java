@@ -1,12 +1,6 @@
 package com.structure.test;
 
 
-import android.widget.TextView;
-
-import com.squareup.leakcanary.ExcludedRefs;
-
-import java.lang.annotation.Documented;
-
 /**
  * Created by yuchao on 6/14/16.
  */

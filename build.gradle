@@ -86,7 +86,4 @@ final def  map = ext.libraries = [
 
         /**log*/
         Timber : "com.jakewharton.timber:timber:4.1.2",
-
-
-
 ]
