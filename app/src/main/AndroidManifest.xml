@@ -71,6 +71,8 @@
         <activity android:name=".widget.view.ViewActivity"
             />
 
+        <activity android:name=".test.opengl.OpenGlActivity"/>
+
 
         <!--umeng start-->
         <meta-data

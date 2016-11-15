@@ -49,6 +49,9 @@ public class TabsRecyclerViewAdapter extends RecyclerView.Adapter {
   }
 
   public void addItemArray(List<Item> array) {
+    if (array == null) {
+      return;
+    }
     if (mItems == null) {
       mItems = new ArrayList<>();
     }
@@ -94,15 +97,12 @@ public class TabsRecyclerViewAdapter extends RecyclerView.Adapter {
 
   @Override
   public int getItemCount() {
-    return mTypeMapper.size();
+    return mTypeMapper == null ? 0 : mTypeMapper.size();
   }
 
   @Override
   public int getItemViewType(int position) {
-    if (mTypeMapper == null) {
-      return 0;
-    }
-    return mTypeMapper.getType(position);
+    return mTypeMapper == null ? 0 : mTypeMapper.getType(position);
   }
 
 
@@ -152,11 +152,6 @@ public class TabsRecyclerViewAdapter extends RecyclerView.Adapter {
       return sparse.size();
     }
   }
-
-
-
-
-
 
 
 }

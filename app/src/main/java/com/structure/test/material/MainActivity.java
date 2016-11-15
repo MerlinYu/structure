@@ -37,6 +37,7 @@ import com.structure.test.MyJniClass;
 import com.structure.test.database.DbManager;
 import com.structure.test.database.TradeHistory;
 import com.structure.test.database.TradeHistoryTable;
+import com.structure.test.opengl.OpenGlActivity;
 import com.structure.utils.FileUtils;
 import com.structure.utils.GenerateBitmapTask;
 import com.structure.widget.LoadingDialog;
@@ -255,6 +256,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
       startActivity(intent);
     });
     mFlowBtnLayout.addView(coorinatorBtn);
+
+
+    Button openGlBtn = new Button(this);
+    coorinatorBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
+    openGlBtn.setText("open gl ");
+    openGlBtn.setOnClickListener(v -> {
+      startActivity(OpenGlActivity.createIntent(this));
+    });
+    mFlowBtnLayout.addView(openGlBtn);
+
 
 
   }

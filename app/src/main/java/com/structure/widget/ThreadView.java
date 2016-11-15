@@ -80,9 +80,8 @@ class ViewThread extends Thread{
     if (holder == null) {
       return;
     }
-
-    Canvas canvas = null;
     synchronized (holder) {
+      Canvas canvas ;
       canvas = holder.lockCanvas();
       canvas.drawColor(Color.WHITE);
       Paint paint = new Paint();
@@ -92,12 +91,7 @@ class ViewThread extends Thread{
       String str = "This is a surface view";
       paint.getTextBounds(str,0, str.length(),textRect);
       canvas.drawText(str,20,50,paint);
-    }
-    if (canvas != null) {
       holder.unlockCanvasAndPost(canvas);
     }
-
-
-
   }
 }
