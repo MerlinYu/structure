@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -38,18 +39,23 @@ import com.structure.test.database.DbManager;
 import com.structure.test.database.TradeHistory;
 import com.structure.test.database.TradeHistoryTable;
 import com.structure.test.opengl.OpenGlActivity;
+import com.structure.test.sensor.SensorActivity;
 import com.structure.utils.FileUtils;
 import com.structure.utils.GenerateBitmapTask;
+import com.structure.utils.LogUtils;
+import com.structure.utils.StatusBarUtil;
 import com.structure.widget.LoadingDialog;
 import com.structure.widget.TouchLayout;
 import com.structure.widget.TouchView;
 import com.structure.widget.view.ViewActivity;
 
 import org.apmem.tools.layouts.FlowLayout;
+
 import java.io.File;
 import java.lang.ref.WeakReference;
 
 import butterknife.InjectView;
+import timber.log.Timber;
 
 
 /***/
@@ -80,7 +86,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    LogV("on create "+(savedInstanceState==null));
+
     setTouchListener();
     // 设置系统状态栏的状态 http://blog.csdn.net/stevenhu_223/article/details/12428591
 //    多种方式的隐藏or多种方式的显示
@@ -91,8 +97,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     LogV("layer type " + layerType);
     mMainContent.setKeepScreenOn(true);
     mMainContent.setSoundEffectsEnabled(true);
-  }
 
+
+  }
 
 
   @Override
@@ -139,6 +146,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
       MyJniClass jniClass = new MyJniClass();
       jniClass.JniPrint();
       Toast.makeText(MainActivity.this, jniClass.getJniDisplayName(), Toast.LENGTH_SHORT).show();
+      LogUtils.log(" jni btn click ");
     });
 
     mFlowBtnLayout.addView(jniBtn);
@@ -149,7 +157,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     fileBtn.setText("write file");
     fileBtn.setOnClickListener(v -> {
       String data = "Hello I am a system builder!";
-      FileUtils.writeCacheFile(MainActivity.this,FileUtils.FILE_CACHE, data.getBytes());
+      FileUtils.writeCacheFile(MainActivity.this, FileUtils.FILE_CACHE, data.getBytes());
       File file = new File(FileUtils.getCacheDir(MainActivity.this), FileUtils.FILE_CACHE);
       FileUtils.readFileByte(file);
       Toast.makeText(MainActivity.this, file.getAbsolutePath(), Toast.LENGTH_LONG).show();
@@ -172,7 +180,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
       String filePath = "http://pic74.nipic.com/file/20150728/18138004_201107753000_2.jpg";
       Picasso.with(MainActivity.this)
           .load(filePath)
-          .resize(300,300)
+          .resize(300, 300)
           .centerCrop()
           .placeholder(R.mipmap.image_loading)
           .into(mCircleImage);
@@ -195,7 +203,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
           "yuchao.lucky@gmail.com",
           null);
       task.execute(userCard);
-      });
+    });
     mFlowBtnLayout.addView(canvasBtn);
 
     Button animBtn = new Button(this);
@@ -205,7 +213,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     animBtn.setOnClickListener(v -> {
       LoadingDialog dialog = LoadingDialog.getIntent(MainActivity.this);
       dialog.show();
-     });
+    });
     mFlowBtnLayout.addView(animBtn);
 
     final Button databaseBtn = new Button(this);
@@ -214,18 +222,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     databaseBtn.setText("数据库读写");
     databaseBtn.setOnClickListener(v -> {
       DbManager dbManager = DbManager.getInstance();
-      TradeHistory trade = new TradeHistory("2014","2015","hello database!");
+      TradeHistory trade = new TradeHistory("2014", "2015", "hello database!");
       dbManager.Put(trade);
       TradeHistory tradeHistory = dbManager.Get(TradeHistory.class, TradeHistoryTable.queryByName("2014"));
-      Toast.makeText(StructureApplication.sApplication, "write and read  " + tradeHistory.toString(),Toast.LENGTH_LONG).show();
-    //  dbManager.Delete(trade);
+      Toast.makeText(StructureApplication.sApplication, "write and read  " + tradeHistory.toString(), Toast.LENGTH_LONG).show();
+      //  dbManager.Delete(trade);
       dbManager.Delete(DeleteQuery.builder().table(TradeHistoryTable.TABLE).build());
       tradeHistory = dbManager.Get(TradeHistory.class, TradeHistoryTable.queryByName("2014"));
       String deleteResult = "删除成功";
       if (null != tradeHistory) {
         deleteResult = "删除失败";
       }
-      Toast.makeText(StructureApplication.sApplication, "delete database " + deleteResult,Toast.LENGTH_LONG).show();
+      Toast.makeText(StructureApplication.sApplication, "delete database " + deleteResult, Toast.LENGTH_LONG).show();
     });
     mFlowBtnLayout.addView(databaseBtn);
 
@@ -267,13 +275,21 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     });
     mFlowBtnLayout.addView(openGlBtn);
 
+    Button sensorBtn = new Button(this);
+    coorinatorBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
+    sensorBtn.setText("传感器");
+    sensorBtn.setOnClickListener(v -> {
+      startActivity(SensorActivity.createIntent(this));
+    });
+    mFlowBtnLayout.addView(sensorBtn);
 
 
   }
 
   public void showDisplay() {
 
-    Display display =  getWindowManager().getDefaultDisplay();
+    Display display = getWindowManager().getDefaultDisplay();
     if (null != display) {
       int state = display.getState();
       int flag = display.getFlags();
@@ -291,7 +307,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   }
 
   public void setImage(Uri uri) {
-    Toast.makeText(this,"名片地址：" + uri.getPath(),Toast.LENGTH_LONG).show();
+    Toast.makeText(this, "名片地址：" + uri.getPath(), Toast.LENGTH_LONG).show();
     final FrameLayout frameLayout = new FrameLayout(this);
     FrameLayout.LayoutParams frameLayoutParams =
         new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -315,13 +331,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
 
 //    getWindow().getDecorView().setBackground(new ColorDrawable(Color.TRANSPARENT));
 //    getWindow().setContentView(cardView);
-    getWindow().addContentView(frameLayout,frameLayoutParams);
+    getWindow().addContentView(frameLayout, frameLayoutParams);
   }
 
   @Override
   protected void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
-    LogV("on save " + (outState==null));
+    LogV("on save " + (outState == null));
 
   }
 
@@ -372,7 +388,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   @Override
   protected void onRestoreInstanceState(Bundle savedInstanceState) {
     super.onRestoreInstanceState(savedInstanceState);
-    LogV("on restore " + (savedInstanceState==null));
+    LogV("on restore " + (savedInstanceState == null));
   }
 
   private void LogV(String log) {
@@ -400,30 +416,29 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
 
 
   private void setTouchListener() {
-    mTouchLayout.setOnClickListener(v -> LogV("click component name = "+v.getClass().getName()));
+    mTouchLayout.setOnClickListener(v -> LogV("click component name = " + v.getClass().getName()));
 
     mTouchView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        LogV("click component name = "+v.getClass().getName());
+        LogV("click component name = " + v.getClass().getName());
       }
     });
   }
 
 
   public void showWeather(WeatherData data) {
-    Toast.makeText(this,"shen zhen weather \n" + data, Toast.LENGTH_LONG).show();
+    Toast.makeText(this, "shen zhen weather \n" + data, Toast.LENGTH_LONG).show();
   }
-
 
 
   public void testGc() {
     Object o = new Object();
     // 默认的构造函数，会使用ReferenceQueue.NULL 作为queue
     WeakReference<Object> wr = new WeakReference<Object>(o);
-    Log.v("===leaks===", " null ?" +(wr.get() == null));
+    Log.v("===leaks===", " null ?" + (wr.get() == null));
     o = null;
     System.gc();
-    Log.v("===leaks===", " null ?" +(wr.get() == null));
+    Log.v("===leaks===", " null ?" + (wr.get() == null));
   }
 }

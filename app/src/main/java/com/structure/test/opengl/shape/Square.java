@@ -148,7 +148,6 @@ public class Square {
                 GLES20.GL_TRIANGLES, drawOrder.length,
                 GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
 
-        // Disable vertex array
         GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
 

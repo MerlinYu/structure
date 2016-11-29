@@ -25,6 +25,7 @@ public class Triangle {
           "void main() {" +
           "  gl_FragColor = vColor;" +
           "}";
+
   static final int COORDS_PER_VERTEX = 3;
   // number of coordinates per vertex int this array
   static float triangleCoords[] = {

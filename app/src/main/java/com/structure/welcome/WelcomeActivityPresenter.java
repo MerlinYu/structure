@@ -74,10 +74,13 @@ public class WelcomeActivityPresenter extends ActivityPresenter<WelcomeActivity,
 
   // 从网络加载广告图片
   private Observable<Bitmap>  loadADFromIntent() {
+
     String url = "http://img.zcool.cn/community/0111cb554231790000019ae98ea8df.jpg";
     Observable<Bitmap> observable = Observable.create(new Observable.OnSubscribe<Bitmap>() {
       @Override
       public void call(Subscriber<? super Bitmap> subscriber) {
+
+        subscriber.onNext(FileUtils.downloadImage(url));
         subscriber.onNext(FileUtils.downloadImage(url));
       }
     });

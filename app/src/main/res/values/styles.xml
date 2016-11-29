@@ -2,9 +2,6 @@
 
     <!-- Base application theme. -->
 
-    <style name="ApplicationNoTile" parent="Theme.AppCompat.Light.NoActionBar">
-
-    </style>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -15,23 +12,16 @@
 
     <style name="AppTheme.NoBackground" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@null</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+
+    <style name="FullActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
-
     </style>
-
-
-
 
 
     <style name="DialogFullActivity" parent="Theme.AppCompat.NoActionBar">
@@ -40,8 +30,5 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
-
-
-
 
 </resources>

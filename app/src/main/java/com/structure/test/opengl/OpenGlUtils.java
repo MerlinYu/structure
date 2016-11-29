@@ -1,13 +1,28 @@
 package com.structure.test.opengl;
 
+import android.app.ActivityManager;
+import android.app.UiAutomation;
+import android.content.Context;
+import android.content.pm.ConfigurationInfo;
+import android.content.res.Configuration;
 import android.opengl.GLES20;
 import android.util.Log;
+import android.view.accessibility.AccessibilityManager;
 
 /**
  * Created by yuchao on 11/11/16.
  */
 
 public class OpenGlUtils {
+
+  private static final int OPENGL_VERSION_2 = 0x20000;
+
+
+  public static boolean isSupportOpenGl(Context context) {
+    final ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+    final ConfigurationInfo configuration = manager.getDeviceConfigurationInfo();
+    return configuration.reqGlEsVersion >= OPENGL_VERSION_2;
+  }
 
 
   public static int loadShader(int type, String shaderCode) {

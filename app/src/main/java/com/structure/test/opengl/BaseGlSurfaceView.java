@@ -3,7 +3,6 @@ package com.structure.test.opengl;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 import com.structure.BuildConfig;
@@ -32,7 +31,7 @@ public class BaseGlSurfaceView extends GLSurfaceView {
 
     }
 //    setEGLConfigChooser(); default RGB_888 16 bits
-    mRender = new BaseGlRender();
+    mRender = new BaseGlRender(getResources());
     setRenderer(mRender);
     setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
   }
@@ -64,9 +63,7 @@ public class BaseGlSurfaceView extends GLSurfaceView {
           dy = dy * -1 ;
         }
 
-        mRender.setAngle(
-            mRender.getAngle() +
-                ((dx + dy) * TOUCH_SCALE_FACTOR));  // = 180.0f / 320
+        mRender.setAngle(mRender.getAngle() + ((dx + dy) * TOUCH_SCALE_FACTOR));  // = 180.0f / 320
         requestRender();
     }
 

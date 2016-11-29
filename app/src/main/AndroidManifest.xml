@@ -16,11 +16,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/ApplicationNoTile" >
+        android:theme="@style/AppTheme" >
 
         <activity android:name=".test.material.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoBackground"
             android:screenOrientation="portrait">
           <!--  <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,7 +58,7 @@
 
         <activity android:name=".welcome.WelcomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/ActivityTheme"
+            android:theme="@style/FullActivityTheme"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -71,7 +70,21 @@
         <activity android:name=".widget.view.ViewActivity"
             />
 
-        <activity android:name=".test.opengl.OpenGlActivity"/>
+        <activity
+            android:name=".test.opengl.OpenGlActivity"
+            android:process=":open_gl"
+            />
+
+        <activity android:name=".test.sensor.SensorActivity"
+                  android:process=":sensor"
+            />
+
+        <service android:name=".sevice.CommunicationService">
+            <intent-filter>
+                <action android:name="android.intent.action.CommunicationService"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
 
 
         <!--umeng start-->

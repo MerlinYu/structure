@@ -1,10 +1,22 @@
 package com.structure.test.opengl;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.util.Log;
 import android.view.Window;
+
+import com.structure.sevice.CommunicationService;
+import com.structure.sevice.aidl.IData;
+
+import timber.log.Timber;
+
+import static android.R.attr.data;
 
 /**
  * Created by yuchao on 11/8/16.
@@ -26,6 +38,7 @@ public class OpenGlActivity extends Activity {
     glSurfaceView = new BaseGlSurfaceView(this);
     glSurfaceView.start();
     setContentView(glSurfaceView);
+
   }
 
   @Override
@@ -37,6 +50,8 @@ public class OpenGlActivity extends Activity {
   @Override
   protected void onResume() {
     super.onResume();
+//    glSurfaceView.draw();
+
     glSurfaceView.onResume();
   }
 
@@ -50,4 +65,7 @@ public class OpenGlActivity extends Activity {
     super.onPause();
     glSurfaceView.onPause();
   }
+
+
+
 }

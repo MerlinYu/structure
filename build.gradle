@@ -48,6 +48,7 @@ final def  map = ext.libraries = [
         SupportAnnotations: "com.android.support:support-annotations:$support_version",
         RecyclerView      : "com.android.support:recyclerview-v7:$support_version",
         FlowLayout        : "org.apmem.tools:layouts:1.9@aar",
+        SystemBarTint     : "com.readystatesoftware.systembartint:systembartint:1.0.3",
 
 
         /**retrofit */
@@ -86,4 +87,6 @@ final def  map = ext.libraries = [
 
         /**log*/
         Timber : "com.jakewharton.timber:timber:4.1.2",
+
+
 ]

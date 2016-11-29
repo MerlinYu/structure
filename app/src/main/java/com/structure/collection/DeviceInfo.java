@@ -1,5 +1,7 @@
 package com.structure.collection;
 
+import android.os.Build;
+
 /**
  * Created by yuchao.
  */
@@ -21,5 +23,19 @@ public class DeviceInfo {
 
   public static int screenWidth;
   public static int screenHeight;
+
+
+
+  public static String getDeviceInfo() {
+    StringBuffer buffer = new StringBuffer();
+    buffer.append(" model : " + Build.MODEL)
+        .append(" brand : " + Build.BRAND)
+        .append(" manufacturer : " + Build.MANUFACTURER)
+        .append(" product : " + Build.PRODUCT)
+        .append(" boot loader : " + Build.BOOTLOADER)
+        .append(" sdk_int : " + Build.VERSION.SDK_INT)
+        .append(" device : " + Build.DEVICE);
+    return buffer.toString();
+  }
 
 }
