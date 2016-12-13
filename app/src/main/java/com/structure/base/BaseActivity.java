@@ -5,14 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.structure.R;
 import com.structure.StructureApplication;
 import com.structure.base.lifecycle.LifecycleData;
 import com.structure.base.lifecycle.LifecycleEvent;
 import com.structure.base.lifecycle.LifecycleObservable;
-import com.structure.utils.LogUtils;
 import com.structure.utils.StatusBarUtil;
-
 import butterknife.ButterKnife;
 
 /**
@@ -30,6 +27,7 @@ public abstract class BaseActivity<P extends ActivityPresenter> extends AppCompa
     super.onCreate(savedInstanceState);
     // set status bar color and text
     StatusBarUtil.setStatusStyle(this, android.R.color.transparent, true);
+
     int resID = getContentViewId();
     if (resID > 0) {
       setContentView(resID);
@@ -46,7 +44,6 @@ public abstract class BaseActivity<P extends ActivityPresenter> extends AppCompa
     mPresenter = createPresenter();
     lifeObserver.subscribe(mPresenter);
     lifeObserver.onLifecycleChanged(this, LifecycleData.create(LifecycleEvent.CREATE));
-    LogUtils.log("===create_activity==== " + getClass().getName());
   }
 
   private View createContentView() {

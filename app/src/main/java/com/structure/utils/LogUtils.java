@@ -15,6 +15,9 @@ public class LogUtils {
   public static void log(String log){
     Log.v(TAG, log);
   }
+  public static void log(boolean right){
+    Log.v(TAG, String.valueOf(right));
+  }
 
 
   public static void log(float f) {

@@ -8,14 +8,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.structure.utils.system.SystemRomUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import static android.R.attr.type;
+import timber.log.Timber;
+
 import static android.os.Build.VERSION_CODES.KITKAT;
 import static android.os.Build.VERSION_CODES.M;
 import static com.structure.utils.system.SystemRomUtils.SystemRomType.FLYME;
@@ -29,17 +29,10 @@ import static com.structure.utils.system.SystemRomUtils.SystemRomType.MIUI;
 
 public class StatusBarUtil {
 
-  //  public static final int STATUSBARCOLOR_DIVIDER =
   // miui 6+ can set dark status bar text
   public static final String MIUI_STATUS_BAR_VERSION = "V6";
   // flame 4 can set dark status bar text
-  public static final String FLAME_STATUS_BAR_VERSION = "V4.0";
-
-  enum DarkModeType {
-    MIUI_6,
-    FLAME_4,
-    ANDROID_M
-  }
+  public static final String FLYME_STATUS_BAR_VERSION = "V4.0";
 
 
   /**
@@ -48,11 +41,12 @@ public class StatusBarUtil {
    * @param isStatusTextDark isStatusTextDark = true the status bar text will be set dark.
    */
   public static void setStatusStyle(Activity activity, int statusColorId, boolean isStatusTextDark) {
-//    boolean setColorResult = statusBarCanSetColor();
-//    boolean setBarModeResult = isStatusBarTextDark();
     //TODO:需要注意的是 status color and status text color need combine to set
-    setStatusBarColor(activity, statusColorId);
-    setStatusBarMode(activity, isStatusTextDark);
+    if (canSetStatusBarMode()) {
+      setStatusBarMode(activity, isStatusTextDark);
+      setStatusBarColor(activity, statusColorId);
+    }
+
   }
 
 
@@ -63,6 +57,9 @@ public class StatusBarUtil {
     return Build.VERSION.SDK_INT >= KITKAT;
   }
 
+  private static boolean canSetStatusBarMode() {
+    return canMIUIStatusBarDark() || canFlymeStatusBarDark() || (Build.VERSION.SDK_INT >= M);
+  }
   /**
    * NOTE:support android 4.4 version up
    *
@@ -109,11 +106,11 @@ public class StatusBarUtil {
     }
   }
 
-
   /**
    * @return
    */
   private static void setStatusBarMode(Activity activity, boolean isDark) {
+    LogUtils.log(canMIUIStatusBarDark());
     if (canMIUIStatusBarDark()) {
       setMIUIStatusBarMode(activity.getWindow(), isDark);
     } else if(canFlymeStatusBarDark()) {
@@ -126,9 +123,9 @@ public class StatusBarUtil {
 
 
   public static boolean canFlymeStatusBarDark() {
-    if (SystemUtils.getSystemType() == MIUI) {
+    if (SystemRomUtils.getSystemType() == FLYME) {
       String romVersion = SystemRomUtils.getFlameVersion();
-      return compareRomVersion(FLAME_STATUS_BAR_VERSION, romVersion);
+      return compareRomVersion(FLYME_STATUS_BAR_VERSION, romVersion);
     }
     return false;
   }
@@ -174,7 +171,7 @@ public class StatusBarUtil {
    * @return
    */
   public static boolean canMIUIStatusBarDark() {
-    if (SystemUtils.getSystemType() == MIUI) {
+    if (SystemRomUtils.getSystemType() == MIUI) {
       String romVersion = SystemRomUtils.getMIUIRomVersion();
       return compareRomVersion(MIUI_STATUS_BAR_VERSION, romVersion);
     }
@@ -236,8 +233,6 @@ public class StatusBarUtil {
     }
     float requireVersionCode = Float.valueOf(requireVersion.substring(1, requireVersion.length()));
     float romVersionCode = Float.valueOf(romVersion.substring(1, romVersion.length()));
-    LogUtils.log(requireVersionCode);
-    LogUtils.log(romVersionCode);
     return romVersionCode >= requireVersionCode;
   }
 

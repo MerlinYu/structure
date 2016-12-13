@@ -98,7 +98,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     mMainContent.setKeepScreenOn(true);
     mMainContent.setSoundEffectsEnabled(true);
 
-
+    LogUtils.log(Build.VERSION.RELEASE);
   }
 
 

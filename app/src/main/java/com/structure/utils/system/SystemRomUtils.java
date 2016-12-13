@@ -1,11 +1,7 @@
 package com.structure.utils.system;
 
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
-
-import com.structure.utils.LogUtils;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,19 +12,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import timber.log.Timber;
-
-import static android.R.attr.value;
-import static timber.log.Timber.d;
-import static timber.log.Timber.e;
 
 /**
  * Created by yuchao on 11/25/16.
  */
-
 public class SystemRomUtils {
 
   public enum SystemRomType {
@@ -37,6 +24,8 @@ public class SystemRomUtils {
     OTHER
   }
 
+  private static final int DEFAULT_ROM = -1;
+
   private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
   private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
   private static final String KEY_MIUI_INTERNAL_STORAGE = "ro.miui.internal.storage";
@@ -44,25 +33,56 @@ public class SystemRomUtils {
   private static final String KEY_FLAME_VERSION_NAME = "ro.build.fingerprint";
 
 
-  public static boolean isMIUIRom() {
-    try {
-      final BuildProperties prop = BuildProperties.newInstance();
-      return prop.getProperty(KEY_MIUI_VERSION_CODE, null) != null
-          || prop.getProperty(KEY_MIUI_VERSION_NAME, null) != null
-          || prop.getProperty(KEY_MIUI_INTERNAL_STORAGE, null) != null;
-    } catch (IOException e) {
-      e.printStackTrace();
+
+  private static  SystemRomType systemRomType;
+  private static int miuiRom = DEFAULT_ROM; // 未初始化,防止多次查找判断
+  private static int flameRom = DEFAULT_ROM;// 未初始化
+
+
+  public static SystemRomUtils.SystemRomType getSystemType() {
+    if (systemRomType == null) {
+      if (SystemRomUtils.isMIUIRom()) {
+        systemRomType =  SystemRomUtils.SystemRomType.MIUI;
+      } else if (SystemRomUtils.isFlymeRom()) {
+        systemRomType = SystemRomUtils.SystemRomType.FLYME;
+      } else{
+        systemRomType = SystemRomUtils.SystemRomType.OTHER;
+      }
     }
-    return false;
+    return systemRomType;
+  }
+
+
+  public static boolean isAndroid_M() {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+  }
+
+
+  public static boolean isMIUIRom() {
+    if (miuiRom == -1) {
+      try {
+        final BuildProperties prop = BuildProperties.newInstance();
+        if(prop.getProperty(KEY_MIUI_VERSION_CODE, null) != null
+            || prop.getProperty(KEY_MIUI_VERSION_NAME, null) != null
+            || prop.getProperty(KEY_MIUI_INTERNAL_STORAGE, null) != null) {
+          miuiRom = 1;
+        }
+        prop.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    return miuiRom == 1;
   }
 
   public static String getMIUIRomVersion() {
     String version = null;
     try {
       final BuildProperties prop = BuildProperties.newInstance();
-      if (prop.getProperty(KEY_MIUI_VERSION_NAME) != null){
+      if (prop.getProperty(KEY_MIUI_VERSION_NAME) != null) {
         version = prop.getProperty(KEY_MIUI_VERSION_NAME);
       }
+      prop.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -70,58 +90,37 @@ public class SystemRomUtils {
   }
 
   public static String getFlameVersion() {
-    String version = null;
-    try {
-      final BuildProperties prop = BuildProperties.newInstance();
-      if (prop.getProperty(KEY_FLAME_VERSION_NAME) != null){
-        version = prop.getProperty(KEY_FLAME_VERSION_NAME);
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-    Pattern pattern = Pattern.compile("Flame_OS_");
-    Matcher matcher = pattern.matcher(version);
-    if (matcher.matches()) {
-      version = matcher.group(0);
-      LogUtils.log(version);
-    }
-
-    return null;
+    //TODO:需要魅族系统测试,蛋疼的一件事是魅族系统连接不上ADB
+    // 魅族系统Rom版本与android版本号一致
+    return "V"+Build.VERSION.RELEASE;
   }
 
-
-  public static boolean isHuaWeiRom() {
-    try {
-      final BuildProperties prop = BuildProperties.newInstance();
-      return prop.getProperty(KEY_EMUI_VERSION_CODE, null) != null;
-    } catch (final IOException e) {
-      e.printStackTrace();
-    }
-    return false;
-  }
   // 魅族ROM
   public static boolean isFlymeRom() {
-    try {
-      final Method method = Build.class.getMethod("hasSmartBar");
-      return method != null;
-    } catch (NoSuchMethodException e) {
-      e.printStackTrace();
+    if (flameRom == -1) {
+      try {
+        final Method method = Build.class.getMethod("hasSmartBar");
+        flameRom =  method != null ? 1 : flameRom;
+      } catch (NoSuchMethodException e) {
+        e.printStackTrace();
+      }
     }
-    return false;
+    return flameRom == 1;
   }
 
   static class BuildProperties {
 
     private final Properties properties;
 
+    private FileInputStream fileInputStream;
+
     private BuildProperties() throws IOException {
       properties = new Properties();
-      properties.load(new FileInputStream(new File(Environment.getRootDirectory(), "build.prop")));
-      LogUtils.log("===tag=== " + toString());
+      fileInputStream = new FileInputStream(new File(Environment.getRootDirectory(), "build.prop"));
+      properties.load(fileInputStream);
     }
 
-    public static BuildProperties newInstance() throws IOException{
+    public static BuildProperties newInstance() throws IOException {
       return new BuildProperties();
     }
 
@@ -131,6 +130,16 @@ public class SystemRomUtils {
 
     public String getProperty(final String name, String defaultProperty) {
       return properties.getProperty(name, defaultProperty);
+    }
+
+    public void close() {
+      if (fileInputStream != null) {
+        try {
+          fileInputStream.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
     }
 
 
@@ -174,11 +183,11 @@ public class SystemRomUtils {
       int i = 0;
       while (iterator.hasNext()) {
         Map.Entry<Object, Object> entry = iterator.next();
-        int keyLength = ((String)entry.getKey()).length();
-        buffer.append(i++ +  " Entry key : " + entry.getKey());
-        if (keyLength >=32) {
+        int keyLength = ((String) entry.getKey()).length();
+        buffer.append(i++ + " Entry key : " + entry.getKey());
+        if (keyLength >= 32) {
           buffer.append("| value : " + entry.getValue());
-        } else if (keyLength >= 24){
+        } else if (keyLength >= 24) {
           buffer.append("\t| value : " + entry.getValue());
         } else {
           buffer.append("\t\t| value : " + entry.getValue());
@@ -188,7 +197,4 @@ public class SystemRomUtils {
       return buffer.toString();
     }
   }
-
-
-
 }
