@@ -76,6 +76,8 @@
         <activity android:name=".widget.view.ViewActivity"
             />
 
+        <activity android:name=".pay.PayActionActivity"/>
+
         <activity
             android:name=".test.opengl.OpenGlActivity"
             android:process=":open_gl"
