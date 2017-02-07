@@ -16,4 +16,18 @@ JNIEXPORT void JNICALL Java_com_structure_test_MyJniClass_DisplayHello
     return;
 }
 
+JNIEXPORT jstring JNICALL Java_com_structure_test_MyJniClass_getDisplayName
+        (JNIEnv *env, jobject obj)
+{
+    char *str="String from native C";
+    return (*env)->NewStringUTF(env, str);
+}
+
+JNIEXPORT jint JNICALL Java_com_structure_test_MyJniClass_getNativeName
+        (JNIEnv * env, jobject obj)
+{
+    return 5;
+}
+
+
 

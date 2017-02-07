@@ -9,15 +9,16 @@ public class MyJniClass {
     System.loadLibrary("jni-hello");
   }
   private native void DisplayHello();
-  //private native String getDisplayName();
+  private native String getDisplayName();
+  private native int getNativeName();
 
   public void JniPrint() {
     DisplayHello();
   }
 
   public String getJniDisplayName() {
-   // return getDisplayName();
-    return "merlin jni";
+    return getDisplayName();
   }
+
 
 }

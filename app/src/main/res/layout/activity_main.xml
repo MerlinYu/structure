@@ -54,6 +54,11 @@
 
                 />
 
+            <ImageView
+                android:id="@+id/blur_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
             <com.structure.widget.TouchLayout
                 android:id="@+id/touch_layout"
                 android:layout_width="0dp"

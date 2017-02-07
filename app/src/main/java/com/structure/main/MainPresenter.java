@@ -13,6 +13,7 @@ import com.structure.main.data.KeyWordsData;
 import com.structure.main.data.weather.WeatherData;
 import com.structure.person.event.GenerateCardEvent;
 import com.structure.test.material.MainActivity;
+import com.structure.utils.LogUtils;
 import com.structure.widget.LoadingDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,6 +35,22 @@ public class MainPresenter extends ActivityPresenter<MainActivity, ActivityModul
 
   public MainPresenter(MainActivity mDisplay) {
     super(mDisplay, RetrofitApiService.create(TestAPI.class, TAG));
+  }
+
+
+  public void retrofitRequest() {
+    mModule.asRetrofit().logOut().enqueue(new Callback<BaseResponse<BaseResponse.ResponseData>>() {
+      @Override
+      public void onResponse(Call<BaseResponse<BaseResponse.ResponseData>> call, Response<BaseResponse<BaseResponse.ResponseData>> response) {
+        LogUtils.log("success ");
+      }
+
+      @Override
+      public void onFailure(Call<BaseResponse<BaseResponse.ResponseData>> call, Throwable t) {
+        t.printStackTrace();
+      }
+    });
+
   }
 
   public void getTestKeyWord() {

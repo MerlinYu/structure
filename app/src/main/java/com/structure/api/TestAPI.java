@@ -39,6 +39,11 @@ public interface TestAPI {
   Call<BaseResponse<KeyWordsData>> getKeyV3Words();
 
 
+  @GET("http://api-test.momoso.com/9394/ios/v2/logout")
+  Call<BaseResponse<BaseResponse.ResponseData>> logOut();
+
+
+
 
 
 

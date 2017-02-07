@@ -40,10 +40,10 @@ import com.structure.test.database.TradeHistory;
 import com.structure.test.database.TradeHistoryTable;
 import com.structure.test.opengl.OpenGlActivity;
 import com.structure.test.sensor.SensorActivity;
+import com.structure.utils.BitmapHelper;
 import com.structure.utils.FileUtils;
 import com.structure.utils.GenerateBitmapTask;
 import com.structure.utils.LogUtils;
-import com.structure.utils.StatusBarUtil;
 import com.structure.widget.LoadingDialog;
 import com.structure.widget.TouchLayout;
 import com.structure.widget.TouchView;
@@ -77,6 +77,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
   TouchLayout mTouchLayout;
   @InjectView(R.id.touch_text_view)
   TouchView mTouchView;
+  @InjectView(R.id.blur_image)
+  ImageView blurImage;
 
   public static Intent createIntent(Context context) {
     Intent intent = new Intent(context, MainActivity.class);
@@ -280,10 +282,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
         ViewGroup.LayoutParams.WRAP_CONTENT));
     sensorBtn.setText("传感器");
     sensorBtn.setOnClickListener(v -> {
+//      mPresenter.retrofitRequest();
+//      startActivity(new Intent(this, PayPalActivity.class));
       startActivity(SensorActivity.createIntent(this));
     });
     mFlowBtnLayout.addView(sensorBtn);
 
+    String path = "http://image.momoso.com/cached/1bca7744406b3af5d0f5fa1c8e923623-434x650";
+    String path1 = "http://4493bz.1985t.com/uploads/allimg/150127/4-15012G52133.jpg";
+    BitmapHelper.setBlurImage(new WeakReference<View>(blurImage), path1, 300, 300);
 
   }
 

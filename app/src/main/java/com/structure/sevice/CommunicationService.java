@@ -10,6 +10,7 @@ import com.structure.sevice.aidl.IData;
 
 /**
  * Created by yuchao on 11/25/16.
+ * aidl service
  */
 
 public class CommunicationService extends Service {

@@ -1,4 +1,4 @@
-package com.structure.pattern;
+package com.structure.test.pattern;
 
 /**
  * Created by yuchao on 8/15/16.

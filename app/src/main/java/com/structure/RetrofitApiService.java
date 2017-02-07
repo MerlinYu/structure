@@ -5,9 +5,9 @@ import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import com.structure.base.ActivityModule;
-import com.structure.collection.HeadersCollection;
+import com.structure.collection.RequestHeaders;
 import com.structure.utils.NetworkUtils;
-import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +17,6 @@ import okhttp3.ConnectionPool;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -116,12 +115,12 @@ public final class RetrofitApiService {
       if (sHeaders == null) {
         sHeaders = new HashMap<>();
       }
-      sHeaders.put(HeadersCollection.APP_VERSION, "android/" + info.versionName);
-      sHeaders.put(HeadersCollection.APP_NAME, "android/" + info.packageName);
+      sHeaders.put(RequestHeaders.APP_VERSION, "android/" + info.versionName);
+      sHeaders.put(RequestHeaders.APP_NAME, "android/" + info.packageName);
       sHeaders.put("Cookie", "remember_token=558f647c20058915ffa8544f|7a679bc4a767620c597aedfcce835226273d16a2; " +
           "session=f09841fd-350f-46ad-bd0b-bcc32111ead4");
       //5d115b3a-d9c3-4110-83a0-70792037f76a
-      sHeaders.put(HeadersCollection.MAC_ADDRESS, macAddr);
+      sHeaders.put(RequestHeaders.MAC_ADDRESS, macAddr);
 
     } catch (PackageManager.NameNotFoundException ignore) {
       ignore.printStackTrace();

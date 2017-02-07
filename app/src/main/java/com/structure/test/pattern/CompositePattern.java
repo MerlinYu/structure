@@ -1,4 +1,4 @@
-package com.structure.pattern;
+package com.structure.test.pattern;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

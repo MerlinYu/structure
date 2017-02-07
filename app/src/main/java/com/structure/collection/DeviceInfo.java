@@ -25,6 +25,11 @@ public class DeviceInfo {
   public static int screenHeight;
 
 
+  public static void init() {
+
+  }
+
+
 
   public static String getDeviceInfo() {
     StringBuffer buffer = new StringBuffer();

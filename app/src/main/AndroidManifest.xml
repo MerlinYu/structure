@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.structure" >
+          package="com.structure">
 
     <!--intent-->
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -11,40 +11,45 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-        android:allowBackup="true"
         android:name=".StructureApplication"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
-        <activity android:name=".test.material.MainActivity"
+        <activity
+            android:name=".test.material.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
-          <!--  <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            <!--  <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>-->
         </activity>
 
-        <activity android:name=".person.PersonActivity"
+        <activity
+            android:name=".person.PersonActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             />
 
-        <activity android:name=".test.material.CoodinatorActivity"
-                  android:label="@string/app_name"
-                  android:screenOrientation="portrait"
+        <activity
+            android:name=".test.material.CoodinatorActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
             />
 
-        <activity android:name=".test.LargeDataTransportActivity"
+        <activity
+            android:name=".test.LargeDataTransportActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/DialogFullActivity"/>
 
         <activity android:name=".tab.SimpleTabActivity"/>
 
-        <activity android:name=".scheme.SchemeSelectActivity"
+        <activity
+            android:name=".scheme.SchemeSelectActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <data android:scheme="lucky"/>
@@ -56,13 +61,14 @@
 
         <activity android:name=".main.rx.RxActivity"/>
 
-        <activity android:name=".welcome.WelcomeActivity"
+        <activity
+            android:name=".welcome.WelcomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/FullActivityTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/FullActivityTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 
         </activity>
@@ -75,8 +81,9 @@
             android:process=":open_gl"
             />
 
-        <activity android:name=".test.sensor.SensorActivity"
-                  android:process=":sensor"
+        <activity
+            android:name=".test.sensor.SensorActivity"
+            android:process=":sensor"
             />
 
         <service android:name=".sevice.CommunicationService">
@@ -90,14 +97,11 @@
         <!--umeng start-->
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="{channel}" />
-
-        <meta-data android:name="TD_CHANNEL_ID"
-                   android:value="{channel}"/>
-
+            android:value="{channel}"/>
         <meta-data
             android:name="JPUSH_CHANNEL"
-            android:value="{channel}" />
+            android:value="{channel}"/>
+        <!--umeng end-->
 
 
     </application>

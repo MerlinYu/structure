@@ -4,7 +4,7 @@ package com.structure.collection;
 /**
  * Created by yuchao.
  */
-public class HeadersCollection {
+public class RequestHeaders {
 
   public static String APP_VERSION = "app_version";
   public static String APP_NAME = "app_name";
