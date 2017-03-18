@@ -12,4 +12,7 @@ public class PayActionActivityPresenter extends ActivityPresenter<PayActionActiv
   public PayActionActivityPresenter(PayActionActivity mDisplay, BaseModule mModule) {
     super(mDisplay, mModule);
   }
+
+
+
 }

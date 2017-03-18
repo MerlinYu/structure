@@ -13,6 +13,8 @@ import com.structure.test.database.DbManager;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import timber.log.Timber;
+
 /**
  * Created by yuchao.
  */
@@ -27,6 +29,8 @@ public class StructureApplication extends Application {
     super.onCreate();
     mRefWatcher = LeakCanary.install(this);
     sApplication = this;
+    Timber.plant(new Timber.DebugTree());
+
     initService();
     initDeviceInfo();
     initDatabase();

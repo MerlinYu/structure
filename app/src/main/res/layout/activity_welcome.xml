@@ -4,7 +4,15 @@
     android:id="@+id/welcome_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/welcome">
+    >
+
+    <ImageView
+        android:id="@+id/start_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
 
 
 

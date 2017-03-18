@@ -16,27 +16,34 @@ import com.structure.utils.ImageUtils;
 /**
  * Created by yuchao on 9/10/16.
  */
-public class ThreadView extends SurfaceView implements SurfaceHolder.Callback{
+public class ThreadView extends SurfaceView implements SurfaceHolder.Callback {
 
   private SurfaceHolder holder;
   private ViewThread viewThread;
 
   public ThreadView(Context context) {
     super(context);
+    init();
+  }
+
+
+  public ThreadView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    init();
+  }
+
+  private void init() {
     this.holder = this.getHolder();
     this.holder.addCallback(this);
     viewThread = new ViewThread(holder);
 
   }
 
-  public ThreadView(Context context, AttributeSet attrs) {
-    super(context, attrs);
-  }
-
   @Override
   public void surfaceCreated(SurfaceHolder holder) {
     Log.v("===tag===", "surfaceCreated");
 
+    viewThread.setRun(true);
     viewThread.start();
 
   }
@@ -48,14 +55,19 @@ public class ThreadView extends SurfaceView implements SurfaceHolder.Callback{
 
   @Override
   public void surfaceDestroyed(SurfaceHolder holder) {
-
+    viewThread.setRun(false);
+    try {
+      viewThread.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
 
   }
 
 
 }
 
-class ViewThread extends Thread{
+class ViewThread extends Thread {
 
   private SurfaceHolder holder;
   private boolean isRun;
@@ -80,8 +92,10 @@ class ViewThread extends Thread{
     if (holder == null) {
       return;
     }
+
+
     synchronized (holder) {
-      Canvas canvas ;
+      Canvas canvas;
       canvas = holder.lockCanvas();
       canvas.drawColor(Color.WHITE);
       Paint paint = new Paint();
@@ -89,9 +103,10 @@ class ViewThread extends Thread{
       paint.setTextSize(36);
       Rect textRect = new Rect();
       String str = "This is a surface view";
-      paint.getTextBounds(str,0, str.length(),textRect);
-      canvas.drawText(str,20,50,paint);
-      holder.unlockCanvasAndPost(canvas);
+      paint.getTextBounds(str, 0, str.length(), textRect);
+      canvas.drawText(str, 20, 50, paint);
     }
+
+
   }
 }

@@ -95,7 +95,8 @@ public class SupportPayment implements Parcelable{
   public static String[] SupportPayList = {NAME_WECHAT, NAME_ALIPAY};
 
 
-  public static PaymentAction toPaymentAction(Activity activity, SupportPayment actionType) {
+  public static PaymentAction toPaymentAction(Activity activity,
+                                              SupportPayment actionType) {
     switch (actionType.actionID) {
       case ID_ALIPAY:
         return new AliPaymentAction(activity);

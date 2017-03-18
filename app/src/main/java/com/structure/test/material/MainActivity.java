@@ -34,6 +34,7 @@ import com.structure.main.rx.RxActivity;
 import com.structure.person.PersonActivity;
 import com.structure.person.userdata.UserCard;
 import com.structure.tab.SimpleTabActivity;
+import com.structure.test.GifActivity;
 import com.structure.test.MyJniClass;
 import com.structure.test.database.DbManager;
 import com.structure.test.database.TradeHistory;
@@ -287,6 +288,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
       startActivity(SensorActivity.createIntent(this));
     });
     mFlowBtnLayout.addView(sensorBtn);
+
+
+    Button gifButton = new Button(this);
+    gifButton.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
+    gifButton.setText("gif view ");
+    gifButton.setOnClickListener(v -> {
+      startActivity(new Intent(this, GifActivity.class));
+    });
+    mFlowBtnLayout.addView(gifButton);
+
+
 
     String path = "http://image.momoso.com/cached/1bca7744406b3af5d0f5fa1c8e923623-434x650";
     String path1 = "http://4493bz.1985t.com/uploads/allimg/150127/4-15012G52133.jpg";

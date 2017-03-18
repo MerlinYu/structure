@@ -28,6 +28,8 @@ public class WelcomeActivityPresenter extends ActivityPresenter<WelcomeActivity,
   }
 
 
+
+
   public void loadWelcome() {
     // Observable 其中某个observable发生错误并不影响合并
     sub = Observable.mergeDelayError(loadADFromLocal().subscribeOn(Schedulers.io()),
@@ -44,17 +46,14 @@ public class WelcomeActivityPresenter extends ActivityPresenter<WelcomeActivity,
         })
         .subscribe(
             timer -> {
-              System.out.println("========on next");
               mDisplay.startMainActivity();
               mDisplay.finish();
             },
             error -> {
-              System.out.println("=========on error");
               mDisplay.startMainActivity();
               mDisplay.finish();
             },
             () ->{
-              System.out.println("=========on finish");
             }
         );
   }

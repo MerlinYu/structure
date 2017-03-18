@@ -58,6 +58,7 @@ public class ViewActivity extends BaseActivity<ViewActivityPresenter> {
     Bitmap bitmap = ImageUtils.scaleBitmap(filePath);
 
     mDrawableImage.setImageBitmap(bitmap);
+
 //    旋转角度
 //    mDrawableImage.setRotation(120.0f);
 //    mDrawableImage.setPivotX(10.0f);

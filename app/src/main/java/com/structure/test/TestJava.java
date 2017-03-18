@@ -1,6 +1,12 @@
 package com.structure.test;
 
 
+import java.text.DecimalFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static android.R.attr.name;
+
 /**
  * Created by yuchao on 6/14/16.
  */
@@ -43,9 +49,38 @@ public class TestJava {
   }
 
   public static void main(String args[]) {
-    logicalOperator();
-    JavaCollection.test();
-    CloneShape.test();
+
+
+    String colorStr = "#e423H";
+    String colorStr2 = "#ffffff";
+    String colorStr3 = "#123456";
+    String colorStr4 = "#222fff77";
+    String colorStr5 = "#zzavff77";
+
+    String check = "#[\\d,a-f,A-F]{6,8}";
+
+    Pattern pattern = Pattern.compile(check);
+
+    System.out.println("color match " + pattern.matcher(colorStr).matches());
+    System.out.println("color match " + pattern.matcher(colorStr2).matches());
+    System.out.println("color match " + pattern.matcher(colorStr3).matches());
+    System.out.println("color match " + pattern.matcher(colorStr4).matches());
+    System.out.println("color match " + pattern.matcher(colorStr5).matches());
+
+
+    System.out.println("float 1.0f " + convertFloatPrice(1.0f));
+    System.out.println("float 1.02f " + convertFloatPrice(1.02f));
+    System.out.println("float 1.30f " + convertFloatPrice(1.30f));
+    System.out.println("float 1.333f " + convertFloatPrice(1.000333f));
+    System.out.println("float 1f " + convertFloatPrice(1f));
+
+
+
+
+
+//    logicalOperator();
+//    JavaCollection.test();
+//    CloneShape.test();
 
 //    TestJava test = new TestJava();
 //    System.out.println("===name=== " + NAME + NAME.hashCode());
@@ -107,14 +142,23 @@ public class TestJava {
 
 //    if (a&&b)
 
+  }
 
 
+  private static String convertFloatPrice(float price) {
+//    保留两位小数
+    price =  ((float) (int)(price * 100) / 100);
+    boolean  tenthIsInt = (int)(price * 10 % 10) == 0;
+    boolean  percentileIsInt = (int)(price * 100 % 10) == 0;
 
+    System.out.println(" ten, percent price " + tenthIsInt + " , " + percentileIsInt + " , " + price );
 
+    float strPrice = price;
 
-
-
-
+    if (tenthIsInt && percentileIsInt) {
+      return String.valueOf((int) price);
+    }
+    return String.valueOf(strPrice);
   }
 
 }

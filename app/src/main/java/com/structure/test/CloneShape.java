@@ -28,7 +28,7 @@ public class CloneShape {
 
   // 影子克隆也称简单克隆当类中属性是简单的String 类型时可以使用，如果类中有数组或复杂的类时必须使用尝试深度克隆
   static class Shape implements Cloneable, Parcelable {
-    String name;
+    String name = "shape";
 
     public Shape() {
 

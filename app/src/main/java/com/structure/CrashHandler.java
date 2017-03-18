@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 import static java.lang.System.currentTimeMillis;
 
 /**
@@ -70,23 +72,25 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     ex.printStackTrace(printWriter);
     final String result = writer.toString();
 
-    final SimpleDateFormat dateFormat = new SimpleDateFormat("yy_MM_dd_HH_mm", Locale.getDefault());
-    String fileName = dateFormat.format(new Date(System.currentTimeMillis())) + ".txt";
-    File logFile = new File(crashFilePath, fileName);
-    try {
-      FileOutputStream out = new FileOutputStream(logFile);
-      byte bytes[] = result.getBytes();
-      out.write(bytes);
-      out.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } finally {
-      if (!BuildConfig.DEBUG) {
-        //TODO: 非debug模式下直接kill app无任何提醒
+    Timber.d("===tag==== result " + result );
 
-
-      }
-    }
+//    final SimpleDateFormat dateFormat = new SimpleDateFormat("yy_MM_dd_HH_mm", Locale.getDefault());
+//    String fileName = dateFormat.format(new Date(System.currentTimeMillis())) + ".txt";
+//    File logFile = new File(crashFilePath, fileName);
+//    try {
+//      FileOutputStream out = new FileOutputStream(logFile);
+//      byte bytes[] = result.getBytes();
+//      out.write(bytes);
+//      out.close();
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    } finally {
+//      if (!BuildConfig.DEBUG) {
+//        //TODO: 非debug模式下直接kill app无任何提醒
+//
+//
+//      }
+//    }
   }
 
 
