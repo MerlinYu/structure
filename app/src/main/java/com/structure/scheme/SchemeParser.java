@@ -7,7 +7,7 @@ import android.content.Context;
  */
 public class SchemeParser {
 
-    public static final String SCHEME = "lucky";
+    public static final String SCHEME = "cloudmall";
 
     public static void startSchemeActivity(Context context, String string) {
 

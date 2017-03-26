@@ -201,7 +201,7 @@ public class GifSurfaceView extends SurfaceView implements SurfaceHolder.Callbac
                 }
               }
             } else {
-              int frameDuration = gifDurationTime / animFrameCount;
+//              int frameDuration = gifDurationTime / animFrameCount;
 //              Timber.d("===tag=== duration time " + frameDuration);
 
               Thread.sleep(0);
@@ -359,6 +359,7 @@ public class GifSurfaceView extends SurfaceView implements SurfaceHolder.Callbac
     public void cancel() {
       cancel = true;
       isEnd = true;
+
     }
 
     public void setLopper(boolean lopper) {

@@ -19,7 +19,6 @@ class CPU {
 class Disk {
   public void start() {
     System.out.println(" Disk start!");
-
   }
   public void end() {
     System.out.println(" Disk end!");

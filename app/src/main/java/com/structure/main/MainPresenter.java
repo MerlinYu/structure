@@ -3,11 +3,14 @@ package com.structure.main;
 
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.structure.RetrofitApiService;
 import com.structure.api.TestAPI;
 import com.structure.base.ActivityModule;
 import com.structure.base.ActivityPresenter;
+import com.structure.cache.DiskCacheUtil;
 import com.structure.main.data.BaseResponse;
 import com.structure.main.data.KeyWordsData;
 import com.structure.main.data.weather.WeatherData;
@@ -22,6 +25,7 @@ import org.greenrobot.eventbus.Subscribe;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 
 /**
@@ -79,19 +83,34 @@ public class MainPresenter extends ActivityPresenter<MainActivity, ActivityModul
     String city = "ShenZhen";
     String appId = "ea574594b9d36ab688642d5fbeab847e";
     showLoadingDialog();
-    mModule.asRetrofit().getWeatherFromApi(city,appId).enqueue(new Callback<WeatherData>() {
+
+    String url = "http://api.openweathermap.org/data/2.5/weather?q=ShenZhen&APPID=ea574594b9d36ab688642d5fbeab847e";
+    String value = DiskCacheUtil.readCache(url);
+    if (value != null) {
+      Toast.makeText(mDisplay, value, Toast.LENGTH_LONG).show();
+    }
+
+    mModule.asRetrofit().getWeatherFromApi(city, appId).enqueue(new Callback<WeatherData>() {
       @Override
       public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
         Log.v(TAG, " get shen zhen weather");
         if (response.isSuccessful()) {
           if (null != response.body()) {
             WeatherData data = response.body();
+            Gson gson = new Gson();
+
+            String baseUrl = response.raw().request().url().toString();
+            Timber.d("===tag=== base url " + baseUrl);
+            DiskCacheUtil.writeCache(baseUrl,
+                gson.toJson(data));
             mDisplay.showWeather(data);
           }
         }
         if (!mDisplay.isDestroyed()) {
           dismissLoadingDialog();
         }
+
+
       }
 
       @Override

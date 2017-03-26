@@ -45,6 +45,7 @@ import com.structure.utils.BitmapHelper;
 import com.structure.utils.FileUtils;
 import com.structure.utils.GenerateBitmapTask;
 import com.structure.utils.LogUtils;
+import com.structure.web.WebActivity;
 import com.structure.widget.LoadingDialog;
 import com.structure.widget.TouchLayout;
 import com.structure.widget.TouchView;
@@ -285,7 +286,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     sensorBtn.setOnClickListener(v -> {
 //      mPresenter.retrofitRequest();
 //      startActivity(new Intent(this, PayPalActivity.class));
-      startActivity(SensorActivity.createIntent(this));
+//      startActivity(SensorActivity.createIntent(this));
+      Intent intent = new Intent(this, WebActivity.class);
+      startActivity(intent);
     });
     mFlowBtnLayout.addView(sensorBtn);
 

@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.structure.R;
+import com.structure.widget.view.GifMovieImageView;
 import com.structure.widget.view.GifSurfaceView;
+
+import static com.structure.R.id.GifImageView;
 
 /**
  * Created by yuchao on 3/9/17.
@@ -12,7 +15,7 @@ import com.structure.widget.view.GifSurfaceView;
 
 public class GifActivity extends Activity {
 
-  private GifImageView gifImageView;
+  private GifMovieImageView gifImageView;
 
 
   private GifSurfaceView gifSurfaceView;
@@ -23,11 +26,8 @@ public class GifActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_gif);
 
-//    gifImageView = (GifImageView) findViewById(R.id.GifImageView);
-//    gifImageView.setGifImageResource(R.drawable.launch);
 
-
-    gifImageView = (GifImageView) findViewById(R.id.GifImageView);
+    gifImageView = (GifMovieImageView) findViewById(GifImageView);
     gifImageView.setGifImageResource(R.mipmap.launch);
 
 //    gifSurfaceView = (GifSurfaceView) findViewById(R.id.gif_surface_view);

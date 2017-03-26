@@ -7,8 +7,10 @@ import android.util.DisplayMetrics;
 //import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.structure.cache.DiskCacheUtil;
 import com.structure.collection.DeviceInfo;
 import com.structure.test.database.DbManager;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -30,6 +32,12 @@ public class StructureApplication extends Application {
     mRefWatcher = LeakCanary.install(this);
     sApplication = this;
     Timber.plant(new Timber.DebugTree());
+    DiskCacheUtil.init(this);
+
+
+    CrashReport.initCrashReport(getApplicationContext(), AppKey.BUGLY_APP_ID, BuildConfig.DEBUG);
+
+
 
     initService();
     initDeviceInfo();
