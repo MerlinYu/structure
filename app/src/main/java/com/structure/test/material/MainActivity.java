@@ -245,7 +245,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
     retrofitBtn.setLayoutParams(new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT));
     retrofitBtn.setText("retrofit 2.0 网络请求");
-    retrofitBtn.setOnClickListener(v -> mPresenter.getShenZhenWeather());
+    retrofitBtn.setOnClickListener(v -> {
+      mPresenter.getShenZhenWeather();
+      mPresenter.getTestKeyWord();
+    });
     mFlowBtnLayout.addView(retrofitBtn);
 
     Button rxBtn = new Button(this);
@@ -301,7 +304,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainDis
       startActivity(new Intent(this, GifActivity.class));
     });
     mFlowBtnLayout.addView(gifButton);
-
 
 
     String path = "http://image.momoso.com/cached/1bca7744406b3af5d0f5fa1c8e923623-434x650";

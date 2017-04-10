@@ -4,6 +4,8 @@ package com.structure;
 import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+
+import com.google.gson.internal.bind.JsonAdapterAnnotationTypeAdapterFactory;
 import com.structure.base.ActivityModule;
 import com.structure.collection.RequestHeaders;
 import com.structure.utils.NetworkUtils;
@@ -66,6 +68,7 @@ public final class RetrofitApiService {
         .baseUrl("http://api-test.momoso.com/9394/ios/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//        .addConverterFactory()
         .client(okHttpClient)
         .build();
   }

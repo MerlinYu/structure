@@ -6,13 +6,16 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.structure.RetrofitApiService;
+import com.structure.RetrofitBaseCallback;
 import com.structure.api.TestAPI;
 import com.structure.base.ActivityModule;
 import com.structure.base.ActivityPresenter;
 import com.structure.cache.DiskCacheUtil;
 import com.structure.main.data.BaseResponse;
 import com.structure.main.data.KeyWordsData;
+import com.structure.main.data.TestKeyData;
 import com.structure.main.data.weather.WeatherData;
 import com.structure.person.event.GenerateCardEvent;
 import com.structure.test.material.MainActivity;
@@ -21,11 +24,26 @@ import com.structure.widget.LoadingDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import okhttp3.MediaType;
+import okhttp3.ResponseBody;
+import okio.Buffer;
+import okio.BufferedSource;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
+
+import static okhttp3.internal.Internal.logger;
 
 
 /**
@@ -35,6 +53,12 @@ public class MainPresenter extends ActivityPresenter<MainActivity, ActivityModul
 
   final static String TAG = "===MainPresenter=== ";
   LoadingDialog dialog;
+  private static final Charset UTF8 = Charset.forName("UTF-8");
+
+  private static final long CACHE_SIZE = 10 * 1024 * 1024; // 10M
+  private static final String CACHE_FILE = "cloudmall_cache";
+
+  private static byte[] mByteBuffer;
 
 
   public MainPresenter(MainActivity mDisplay) {
@@ -58,25 +82,129 @@ public class MainPresenter extends ActivityPresenter<MainActivity, ActivityModul
   }
 
   public void getTestKeyWord() {
-    mModule.asRetrofit().getKeyV3Words().enqueue(new Callback<BaseResponse<KeyWordsData>>() {
-      @Override
-      public void onResponse(Call<BaseResponse<KeyWordsData>> call, Response<BaseResponse<KeyWordsData>> response) {
-        if (response.isSuccessful()) {
 
-          if (null != response.body()) {
-            Log.d(TAG, response.body().data.toString().toString());
-            mDisplay.setTextView(response.body().toString());
-            response.body().data.setResponseData(response.body());
-            response.body().data.getBaseResponse();
-          }
+    Callback<ResponseBody> callback1 = new Callback<ResponseBody>() {
+      @Override
+      public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+        for (String heade: response.headers().names()) {
+          Timber.d("===tag=== header name response : " + heade + "  :  " + response.headers().get(heade));
         }
+
+        String responseDate = response.headers().get("Date");
+        Timber.d("====tag=== responseDate" + responseDate);
+
+
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        java.util.Date date=new java.util.Date();
+        String str=sdf.format(date);
+        Timber.d("====tag=== now date " + str);
+
+//        1491634454581
+
+        SimpleDateFormat format =  new SimpleDateFormat("yyyyMMddhhmmssSSS", Locale.getDefault());
+//        Date date1 = format.parse(responseDate)
+        String timeMap = "1491634454581";
+
+        try {
+//          Date date1 = format.parse(timeMap);
+//          Timber.d("===tag=== time 1 " + date1.getTime());
+
+          Date date2 = format.parse(responseDate);
+          Timber.d("===tag=== time 1 " + date2.getTime());
+
+
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+
+
+
+
+
+
+
+
+        try {
+          long contentLength = response.body().contentLength();
+
+
+          long sTime = System.currentTimeMillis();
+          BufferedSource source = response.body().source();
+          source.request(Long.MAX_VALUE); // Buffer the entire body.
+          Buffer buffer = source.buffer();
+          Timber.d("===tag=== buffer time " + (System.currentTimeMillis() - sTime));
+
+
+          Charset charset = UTF8;
+          MediaType contentType = response.body().contentType();
+          if (contentType != null) {
+            try {
+              charset = contentType.charset(UTF8);
+            } catch (UnsupportedCharsetException e) {
+              e.printStackTrace();
+            }
+          }
+
+          if (contentLength != 0) {
+
+            String data = buffer.clone().readString(charset);
+
+            Log.d("===tag=== 1 ", data);
+
+            Log.d("===tag=== 2 ", buffer.readString(charset));
+
+          }
+
+          long streamTime = System.currentTimeMillis();
+          InputStream is = response.body().byteStream();
+
+          StringBuffer out = new StringBuffer();
+          mByteBuffer = new byte[4096];
+          int n;
+          while ((n = is.read(mByteBuffer)) != -1) {
+            out.append(new String(mByteBuffer, 0, n));
+          }
+          Timber.d("===tag=== buffer stream " + (System.currentTimeMillis() - streamTime));
+
+
+          Timber.d("===tag==== length  " + out.length());
+          Timber.d("===tag=== stream " + out.toString());
+
+          mByteBuffer = null;
+
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+
       }
 
       @Override
-      public void onFailure(Call<BaseResponse<KeyWordsData>> call, Throwable t) {
+      public void onFailure(Call<ResponseBody> call, Throwable t) {
 
       }
-    });
+    };
+
+    mModule.asRetrofit().getKeyRespobseWords().enqueue(callback1);
+
+
+    Callback<TestKeyData> callback = new RetrofitBaseCallback<TestKeyData>(false) {
+      @Override
+      public void onRequestSuccess(TestKeyData body) {
+
+
+      }
+
+      @Override
+      public void onRequestFailed(String errorMsg, int code) {
+
+      }
+    };
+
+//    mModule.asRetrofit().getKeyV2Words().enqueue(callback);
+
+
   }
 
   public void getShenZhenWeather() {
@@ -86,9 +214,9 @@ public class MainPresenter extends ActivityPresenter<MainActivity, ActivityModul
 
     String url = "http://api.openweathermap.org/data/2.5/weather?q=ShenZhen&APPID=ea574594b9d36ab688642d5fbeab847e";
     String value = DiskCacheUtil.readCache(url);
-    if (value != null) {
-      Toast.makeText(mDisplay, value, Toast.LENGTH_LONG).show();
-    }
+
+    Timber.d("===tag==== read cache " + value);
+
 
     mModule.asRetrofit().getWeatherFromApi(city, appId).enqueue(new Callback<WeatherData>() {
       @Override
@@ -109,8 +237,6 @@ public class MainPresenter extends ActivityPresenter<MainActivity, ActivityModul
         if (!mDisplay.isDestroyed()) {
           dismissLoadingDialog();
         }
-
-
       }
 
       @Override

@@ -79,6 +79,9 @@ dependencies {
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
 
 
+    compile 'com.jakewharton:disklrucache:2.0.2'
+
+
 
 
 }

@@ -6,6 +6,9 @@ import com.structure.main.data.KeyWordsData;
 import com.structure.main.data.TestKeyData;
 import com.structure.main.data.weather.WeatherData;
 
+import org.json.JSONObject;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -31,16 +34,20 @@ public interface TestAPI {
   @GET("items/hot_keywords")
   Call<String> getKeyV1Words();
 
-  @GET("http://api-test.momoso.com/9394/ios/v2/items/hot_keywords")
+  @GET("http://api-test.momoso.com/9394/ios/v1/items/hot_keywords")
   Call<TestKeyData> getKeyV2Words();
 
 
   @GET("http://api-test.momoso.com/9394/ios/v1/items/hot_keywords")
-  Call<BaseResponse<KeyWordsData>> getKeyV3Words();
+  Call<JSONObject> getKeyV3Words();
 
 
   @GET("http://api-test.momoso.com/9394/ios/v2/logout")
   Call<BaseResponse<BaseResponse.ResponseData>> logOut();
+
+  @GET("http://api-test.momoso.com/9394/ios/v2/items/hot_keywords")
+  Call<ResponseBody> getKeyRespobseWords();
+
 
 
 
